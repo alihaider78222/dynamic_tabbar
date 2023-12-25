@@ -1,5 +1,3 @@
-library dynamic_tabs;
-
 import 'package:flutter/material.dart';
 
 class TabData {
