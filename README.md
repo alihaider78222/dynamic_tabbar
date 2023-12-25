@@ -37,3 +37,13 @@ const like = 'sample';
 TODO: Tell users more about the package: where to find more information, how to
 contribute to the package, how to file issues, what response they can expect
 from the package authors, and more.
+
+## Contribution
+
+Of course the project is open source, and you can contribute to it [repository link](https://github.com/alihaider78222/dynamic_tabs)
+
+- If you **found a bug**, open an issue.
+
+- If you **have a feature request**, open an issue.
+
+- If you **want to contribute**, submit a pull request.

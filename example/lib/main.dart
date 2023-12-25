@@ -80,7 +80,6 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'Dynamic Tabs examples',
             ),
-            // DynamicTabs(),
             Expanded(
               child: DynamicTabsWidget(
                 tabs: tabs,
