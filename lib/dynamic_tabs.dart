@@ -14,16 +14,24 @@ class DynamicTabsWidget extends StatefulWidget {
   final List<TabData> tabs;
   final Function(TabController) onTabControllerUpdated;
   final Function(TabController)? onTabChanged;
-  final int? moveTo;
+  final int? onAddTabMoveTo;
   final bool? isScrollable;
+  final Widget? backIcon;
+  final Widget? nextIcon;
+  // final bool? showBackIcon;
+  // final bool? showNextIcon;
 
   const DynamicTabsWidget({
     Key? key,
     required this.tabs,
     required this.onTabControllerUpdated,
     this.onTabChanged,
-    this.moveTo,
+    this.onAddTabMoveTo,
     this.isScrollable,
+    this.backIcon,
+    this.nextIcon,
+    // this.showBackIcon,
+    // this.showNextIcon,
   }) : super(key: key);
 
   @override
@@ -46,24 +54,18 @@ class _DynamicTabsWidgetState extends State<DynamicTabsWidget>
   void didChangeDependencies() {
     super.didChangeDependencies();
     debugPrint('didChangeDependencies');
+    _tabController = getTabController(initialIndex: widget.tabs.length - 1);
     // widget.onTabControllerUpdated(_tabController = getTabController());
 
-    // if not using controller Tab then
-    // then wrap your widget with DefaultTabController to overcome error
-    // _tabController = getTabController();
-
-    // But
-    // We can't animate or move to the desired Tab
-
-    if (widget.moveTo != null) {
-      print('moveTo : ${widget.moveTo}');
+    if (widget.onAddTabMoveTo != null) {
+      debugPrint('moveTo : ${widget.onAddTabMoveTo}');
     }
   }
 
   @override
   void didUpdateWidget(covariant DynamicTabsWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    print('moveTo didUpdateWidget : ${widget.moveTo}');
+    debugPrint('moveTo didUpdateWidget : ${widget.onAddTabMoveTo}');
 
     if (_tabController?.length != widget.tabs.length) {
       debugPrint('Tab controller updated');
@@ -71,7 +73,7 @@ class _DynamicTabsWidgetState extends State<DynamicTabsWidget>
 
       Future.delayed(const Duration(milliseconds: 50), () {
         _tabController?.animateTo(
-          widget.moveTo! - 1,
+          widget.onAddTabMoveTo! - 1,
           // duration: Duration(milliseconds: 200),
         );
       });
@@ -82,9 +84,10 @@ class _DynamicTabsWidgetState extends State<DynamicTabsWidget>
 
   TabController getTabController({int initialIndex = 0}) {
     return TabController(
-        // initialIndex: initialIndex,
-        length: widget.tabs.length,
-        vsync: this as TickerProvider);
+      // initialIndex: initialIndex,
+      length: widget.tabs.length,
+      vsync: this as TickerProvider,
+    );
     // ..addListener(_updatePage);
   }
 
@@ -100,22 +103,66 @@ class _DynamicTabsWidgetState extends State<DynamicTabsWidget>
       length: widget.tabs.length,
       child: Column(
         children: [
-          TabBar(
-            controller: _tabController,
-            isScrollable: widget.isScrollable ?? false,
-            tabs: widget.tabs.map((tab) => Tab(text: tab.title)).toList(),
+          Row(
+            children: [
+              // if (widget.showBackIcon == true)
+              if (widget.isScrollable == true)
+                IconButton(
+                  icon: widget.backIcon ??
+                      const Icon(
+                        Icons.arrow_back_ios,
+                      ),
+                  onPressed: _moveToPreviousTab,
+                ),
+              Expanded(
+                child: TabBar(
+                  isScrollable: widget.isScrollable ?? false,
+                  controller: _tabController,
+                  // // labelStyle: TextStyle(color: Colors.black),
+                  // unselectedLabelColor: Colors.white.withOpacity(0.4),
+                  // labelColor: Colors.white,
+                  // // Size of bottom indicator
+                  // indicatorSize: TabBarIndicatorSize.label,
+                  tabs: widget.tabs.map((tab) => Tab(text: tab.title)).toList(),
+                ),
+              ),
+              // if (widget.showNextIcon == true)
+              if (widget.isScrollable == true)
+                IconButton(
+                  icon: widget.nextIcon ?? const Icon(Icons.arrow_forward_ios),
+                  onPressed: _moveToNextTab,
+                ),
+            ],
           ),
-          SizedBox(
-            height: 200, // Set the desired height for tab content
+          Expanded(
             child: TabBarView(
               controller: _tabController,
               children: widget.tabs.map((tab) => tab.content).toList(),
             ),
           ),
-          Text('tabController length ${_tabController?.length}'),
-          Text('tabs length ${widget.tabs.length}')
         ],
       ),
     );
+  }
+
+  _moveToNextTab() {
+    if (_tabController != null &&
+        _tabController!.index + 1 < _tabController!.length) {
+      _tabController!.animateTo(_tabController!.index + 1);
+    } else {
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text("Can't move forward"),
+      // ));
+    }
+  }
+
+  _moveToPreviousTab() {
+    if (_tabController != null && _tabController!.index > 0) {
+      _tabController!.animateTo(_tabController!.index - 1);
+    } else {
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text("Can't go back"),
+      // ));
+    }
   }
 }

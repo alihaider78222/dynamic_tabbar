@@ -1,5 +1,9 @@
-import 'package:dynamic_tabs/dynamic_tabs.dart';
 import 'package:flutter/material.dart';
+// Package class
+import 'package:dynamic_tabs/dynamic_tabs.dart';
+
+// Example class
+// import 'dynamic_tab_widget_test.dart';
 
 void main() {
   runApp(const MyApp());
@@ -77,16 +81,15 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'Dynamic Tabs examples',
-            ),
             Expanded(
               child: DynamicTabsWidget(
                 tabs: tabs,
                 isScrollable: true,
                 onTabControllerUpdated: (controller) {},
                 onTabChanged: (index) {},
-                moveTo: tabs.length,
+                onAddTabMoveTo: tabs.length,
+                nextIcon: Icon(Icons.arrow_forward),
+                // showNextIcon: true,
               ),
             ),
             OutlinedButton(
