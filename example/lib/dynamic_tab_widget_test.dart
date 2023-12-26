@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class TabData {
@@ -17,29 +18,52 @@ enum MoveToTab {
 }
 
 /// Dynamic Tabs.
-class DynamicTabsWidget extends StatefulWidget {
-  final List<TabData> tabs;
+class DynamicTabsWidget extends TabBar {
+  final List<TabData> dynamicTabs;
   final Function(TabController) onTabControllerUpdated;
   final Function(TabController)? onTabChanged;
   final MoveToTab? onAddTabMoveTo;
-  final bool? isScrollable;
   final Widget? backIcon;
   final Widget? nextIcon;
   final bool? showBackIcon;
   final bool? showNextIcon;
 
-  const DynamicTabsWidget({
-    Key? key,
-    required this.tabs,
+  DynamicTabsWidget({
+    super.key,
+    required this.dynamicTabs,
     required this.onTabControllerUpdated,
     this.onTabChanged,
     this.onAddTabMoveTo,
-    this.isScrollable,
+    super.isScrollable,
     this.backIcon,
     this.nextIcon,
     this.showBackIcon,
     this.showNextIcon,
-  }) : super(key: key);
+    // Default Tab params :---------------------------------------
+    super.padding,
+    super.indicatorColor,
+    super.automaticIndicatorColorAdjustment = true,
+    super.indicatorWeight = 2.0,
+    super.indicatorPadding = EdgeInsets.zero,
+    super.indicator,
+    super.indicatorSize,
+    super.dividerColor,
+    super.dividerHeight,
+    super.labelColor,
+    super.labelStyle,
+    super.labelPadding,
+    super.unselectedLabelColor,
+    super.unselectedLabelStyle,
+    super.dragStartBehavior = DragStartBehavior.start,
+    super.overlayColor,
+    super.mouseCursor,
+    super.enableFeedback,
+    super.onTap,
+    super.physics,
+    super.splashFactory,
+    super.splashBorderRadius,
+    super.tabAlignment,
+  }) : super(tabs: []);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -73,7 +97,7 @@ class _DynamicTabsWidgetState extends State<DynamicTabsWidget>
     super.didChangeDependencies();
 
     debugPrint('didChangeDependencies');
-    // _tabController = getTabController(initialIndex: widget.tabs.length - 1);
+    // _tabController = getTabController(initialIndex: widget.dynamicTabs.length - 1);
     // widget.onTabControllerUpdated(_tabController = getTabController());
 
     if (widget.onAddTabMoveTo != null) {
@@ -86,7 +110,7 @@ class _DynamicTabsWidgetState extends State<DynamicTabsWidget>
     super.didUpdateWidget(oldWidget);
     debugPrint('moveTo didUpdateWidget : ${widget.onAddTabMoveTo}');
 
-    if (_tabController?.length != widget.tabs.length) {
+    if (_tabController?.length != widget.dynamicTabs.length) {
       debugPrint('Tab controller updated');
       var activeTabIndex = getActiveTab();
       debugPrint('activeTab : $activeTabIndex');
@@ -112,7 +136,7 @@ class _DynamicTabsWidgetState extends State<DynamicTabsWidget>
   TabController getTabController({int initialIndex = 0}) {
     return TabController(
       initialIndex: initialIndex,
-      length: widget.tabs.length,
+      length: widget.dynamicTabs.length,
       vsync: this as TickerProvider,
     )
       // ..addListener(_updatePage);
@@ -125,42 +149,42 @@ class _DynamicTabsWidgetState extends State<DynamicTabsWidget>
 
   int getActiveTab() {
     debugPrint('activeTab :  $activeTab');
-    debugPrint('tabs.length :  ${widget.tabs.length}');
+    debugPrint('tabs.length :  ${widget.dynamicTabs.length}');
 
     // when there are No tabs
-    if (activeTab == 0 && widget.tabs.isEmpty) {
+    if (activeTab == 0 && widget.dynamicTabs.isEmpty) {
       return 0;
     }
-    if (activeTab == widget.tabs.length) {
-      return widget.tabs.length - 1;
+    if (activeTab == widget.dynamicTabs.length) {
+      return widget.dynamicTabs.length - 1;
     }
-    if (activeTab < widget.tabs.length) {
+    if (activeTab < widget.dynamicTabs.length) {
       return activeTab;
     }
-    return widget.tabs.length;
+    return widget.dynamicTabs.length;
   }
 
   // ignore: body_might_complete_normally_nullable
   int? getOnAddMoveToTab(MoveToTab? moveToTab) {
     switch (moveToTab) {
       // case MoveToTab.NEXT:
-      //   return widget.tabs.length - 1;
+      //   return widget.dynamicTabs.length - 1;
 
       // case MoveToTab.PREVIOUS:
-      //   return widget.tabs.length - 2;
+      //   return widget.dynamicTabs.length - 2;
 
       // case MoveToTab.FIRST:
       //   return 1;
 
       case MoveToTab.LAST:
-        return widget.tabs.length - 1;
+        return widget.dynamicTabs.length - 1;
 
       case MoveToTab.IDOL:
         return null;
 
       case null:
         // move to Last Tab
-        return widget.tabs.length - 1;
+        return widget.dynamicTabs.length - 1;
     }
   }
 
@@ -172,9 +196,9 @@ class _DynamicTabsWidgetState extends State<DynamicTabsWidget>
 
   @override
   Widget build(BuildContext context) {
-    // _tabController = getTabController(initialIndex: widget.tabs.length - 1);
+    // _tabController = getTabController(initialIndex: widget.dynamicTabs.length - 1);
     return DefaultTabController(
-      length: widget.tabs.length,
+      length: widget.dynamicTabs.length,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -190,14 +214,36 @@ class _DynamicTabsWidgetState extends State<DynamicTabsWidget>
                 ),
               Expanded(
                 child: TabBar(
-                  isScrollable: widget.isScrollable ?? false,
+                  isScrollable: widget.isScrollable,
                   controller: _tabController,
-                  // // labelStyle: TextStyle(color: Colors.black),
-                  // unselectedLabelColor: Colors.white.withOpacity(0.4),
-                  // labelColor: Colors.white,
-                  // // Size of bottom indicator
-                  // indicatorSize: TabBarIndicatorSize.label,
-                  tabs: widget.tabs.map((tab) => Tab(text: tab.title)).toList(),
+                  tabs: widget.dynamicTabs
+                      .map((tab) => Tab(text: tab.title))
+                      .toList(),
+                  // Default Tab params :---------------------------------------
+                  padding: widget.padding,
+                  indicatorColor: widget.indicatorColor,
+                  automaticIndicatorColorAdjustment:
+                      widget.automaticIndicatorColorAdjustment,
+                  indicatorWeight: widget.indicatorWeight,
+                  indicatorPadding: widget.indicatorPadding,
+                  indicator: widget.indicator,
+                  indicatorSize: widget.indicatorSize,
+                  dividerColor: widget.dividerColor,
+                  dividerHeight: widget.dividerHeight,
+                  labelColor: widget.labelColor,
+                  labelStyle: widget.labelStyle,
+                  labelPadding: widget.labelPadding,
+                  unselectedLabelColor: widget.unselectedLabelColor,
+                  unselectedLabelStyle: widget.unselectedLabelStyle,
+                  dragStartBehavior: widget.dragStartBehavior,
+                  overlayColor: widget.overlayColor,
+                  mouseCursor: widget.mouseCursor,
+                  enableFeedback: widget.enableFeedback,
+                  onTap: widget.onTap,
+                  physics: widget.physics,
+                  splashFactory: widget.splashFactory,
+                  splashBorderRadius: widget.splashBorderRadius,
+                  tabAlignment: widget.tabAlignment,
                 ),
               ),
               if (widget.isScrollable == true && widget.showNextIcon == true)
@@ -213,11 +259,11 @@ class _DynamicTabsWidgetState extends State<DynamicTabsWidget>
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: widget.tabs.map((tab) => tab.content).toList(),
+              children: widget.dynamicTabs.map((tab) => tab.content).toList(),
             ),
           ),
           // Text('tabController length ${_tabController?.length}'),
-          // Text('tabs length ${widget.tabs.length}')
+          // Text('tabs length ${widget.dynamicTabs.length}')
           // Text('Active Tab ${activeTab + 1}'),
           // Text('_tabController.index ${_tabController!.index + 1}')
         ],

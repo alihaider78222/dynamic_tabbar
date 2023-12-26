@@ -144,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Expanded(
             child: DynamicTabsWidget(
-              tabs: tabs,
+              dynamicTabs: tabs,
               isScrollable: isScrollable,
               onTabControllerUpdated: (controller) {},
               onTabChanged: (index) {},
