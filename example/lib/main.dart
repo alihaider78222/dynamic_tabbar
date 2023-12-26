@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 // Package class
-import 'package:dynamic_tabs/dynamic_tabs.dart';
+// import 'package:dynamic_tab/dynamic_tab.dart';
 
 // Example class
-// import 'dynamic_tab_widget_test.dart';
+import 'dynamic_tab_widget_test.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,40 +35,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool isScrollable = false;
+  bool showNextIcon = true;
+  bool showBackIcon = true;
+  // Sample data for tabs
+  List<TabData> tabs = [
+    TabData(
+      index: 1,
+      title: 'Tab 1',
+      content: const Center(child: Text('Content for Tab 1')),
+    ),
+    TabData(
+      index: 2,
+      title: 'Tab 2',
+      content: const Center(child: Text('Content for Tab 2')),
+    ),
+    // Add more tabs as needed
+  ];
+
   @override
   void initState() {
     super.initState();
   }
-
-  void addTab() {
-    setState(() {
-      tabs.add(
-        TabData(
-          title: 'Tab custom',
-          content: Center(child: Text('Content for Tab custom')),
-        ),
-      );
-    });
-  }
-
-  // Sample data for tabs
-  List<TabData> tabs = [
-    TabData(
-      title: 'Tab 1',
-      content: Center(child: Text('Content for Tab 1')),
-    ),
-    TabData(
-      title: 'Tab 2',
-      content: Center(
-        child: Column(
-          children: [
-            Text('Content for Tab 2'),
-          ],
-        ),
-      ),
-    ),
-    // Add more tabs as needed
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -77,30 +65,111 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              child: DynamicTabsWidget(
-                tabs: tabs,
-                isScrollable: true,
-                onTabControllerUpdated: (controller) {},
-                onTabChanged: (index) {},
-                onAddTabMoveTo: tabs.length,
-                nextIcon: Icon(Icons.arrow_forward),
-                // showNextIcon: true,
-              ),
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ElevatedButton(
+                  onPressed: addTab,
+                  child: const Text('Add Tab'),
+                ),
+                const SizedBox(width: 12),
+                ElevatedButton(
+                  onPressed: () => removeTab(tabs.length - 1),
+                  child: const Text('Remove Last Tab'),
+                ),
+                const SizedBox(width: 16),
+                Row(
+                  children: [
+                    const Text('isScrollable'),
+                    Switch.adaptive(
+                      value: isScrollable,
+                      onChanged: (bool val) {
+                        setState(() {
+                          isScrollable = !isScrollable;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 16),
+                Row(
+                  children: [
+                    const Text('showBackIcon'),
+                    Switch.adaptive(
+                      value: showBackIcon,
+                      onChanged: (bool val) {
+                        setState(() {
+                          showBackIcon = !showBackIcon;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 16),
+                Row(
+                  children: [
+                    const Text('showNextIcon'),
+                    Switch.adaptive(
+                      value: showNextIcon,
+                      onChanged: (bool val) {
+                        setState(() {
+                          showNextIcon = !showNextIcon;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ],
             ),
-            OutlinedButton(
-              onPressed: () {
-                addTab();
-              },
-              child: Text('add tab'),
-            )
-          ],
-        ),
+          ),
+          Expanded(
+            child: DynamicTabsWidget(
+              tabs: tabs,
+              isScrollable: isScrollable,
+              onTabControllerUpdated: (controller) {},
+              onTabChanged: (index) {},
+              onAddTabMoveTo: tabs.length,
+              // backIcon: Icon(Icons.arrow_back),
+              // nextIcon: Icon(Icons.arrow_forward),
+              showBackIcon: showBackIcon,
+              showNextIcon: showNextIcon,
+            ),
+          ),
+        ],
       ),
     );
+  }
+
+  void addTab() {
+    setState(() {
+      var tabNumber = tabs.length + 1;
+      tabs.add(
+        TabData(
+          index: tabNumber,
+          title: 'Tab $tabNumber',
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Dynamic Tab $tabNumber'),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () => removeTab(tabNumber - 1),
+                child: const Text('Remove this Tab'),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
+  void removeTab(int id) {
+    setState(() {
+      tabs.removeAt(id);
+    });
   }
 }

@@ -40,7 +40,7 @@ from the package authors, and more.
 
 ## Contribution
 
-Of course the project is open source, and you can contribute to it [repository link](https://github.com/alihaider78222/dynamic_tabs)
+Of course the project is open source, and you can contribute to it [repository link](https://github.com/alihaider78222/dynamic_tab)
 
 - If you **found a bug**, open an issue.
 

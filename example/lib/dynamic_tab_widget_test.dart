@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class TabData {
+  final int index;
   final String title;
   final Widget content;
 
-  TabData({required this.title, required this.content});
+  TabData({required this.index, required this.title, required this.content});
 }
 
 /// Dynamic Tabs.
@@ -16,8 +17,8 @@ class DynamicTabsWidget extends StatefulWidget {
   final bool? isScrollable;
   final Widget? backIcon;
   final Widget? nextIcon;
-  // final bool? showBackIcon;
-  // final bool? showNextIcon;
+  final bool? showBackIcon;
+  final bool? showNextIcon;
 
   const DynamicTabsWidget({
     Key? key,
@@ -28,8 +29,8 @@ class DynamicTabsWidget extends StatefulWidget {
     this.isScrollable,
     this.backIcon,
     this.nextIcon,
-    // this.showBackIcon,
-    // this.showNextIcon,
+    this.showBackIcon,
+    this.showNextIcon,
   }) : super(key: key);
 
   @override
@@ -100,11 +101,11 @@ class _DynamicTabsWidgetState extends State<DynamicTabsWidget>
     return DefaultTabController(
       length: widget.tabs.length,
       child: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
           Row(
             children: [
-              // if (widget.showBackIcon == true)
-              if (widget.isScrollable == true)
+              if (widget.isScrollable == true && widget.showBackIcon == true)
                 IconButton(
                   icon: widget.backIcon ??
                       const Icon(
@@ -124,8 +125,7 @@ class _DynamicTabsWidgetState extends State<DynamicTabsWidget>
                   tabs: widget.tabs.map((tab) => Tab(text: tab.title)).toList(),
                 ),
               ),
-              // if (widget.showNextIcon == true)
-              if (widget.isScrollable == true)
+              if (widget.isScrollable == true && widget.showNextIcon == true)
                 IconButton(
                   icon: widget.nextIcon ?? const Icon(Icons.arrow_forward_ios),
                   onPressed: _moveToNextTab,

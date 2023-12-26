@@ -1,7 +1,7 @@
-name: dynamic_tabs
+name: dynamic_tab
 description: "Flutter package for creating dynamic tabs."
 version: 0.0.1
-homepage: https://github.com/alihaider78222/dynamic_tabs
+homepage: https://github.com/alihaider78222/dynamic_tab
 
 environment:
   sdk: '>=3.2.1 <4.0.0'
