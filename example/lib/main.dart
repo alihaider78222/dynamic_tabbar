@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 // Package class
-// import 'package:dynamic_tab/dynamic_tab.dart';
+import 'package:dynamic_tab/dynamic_tab.dart';
 
 // Example class
-import 'dynamic_tab_widget_test.dart';
+// import 'dynamic_tab_widget_test.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,11 +18,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Example for Dynamic Tabs'),
     );
+
+    // return CupertinoApp(
+    //   title: 'Dynamic Tab',
+    //   theme: CupertinoThemeData(brightness: Brightness.light),
+    //   localizationsDelegates: [
+    //     DefaultMaterialLocalizations.delegate,
+    //     DefaultCupertinoLocalizations.delegate,
+    //     DefaultWidgetsLocalizations.delegate,
+    //   ],
+    //   home: const MyHomePage(title: 'Example for Dynamic Tabs'),
+    // );
   }
 }
 
@@ -69,8 +80,10 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
+            child: Wrap(
+              direction: Axis.horizontal,
+              alignment: WrapAlignment.center,
+              // mainAxisSize: MainAxisSize.min,
               children: [
                 ElevatedButton(
                   onPressed: addTab,
@@ -83,6 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const SizedBox(width: 16),
                 Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text('isScrollable'),
                     Switch.adaptive(
@@ -97,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const SizedBox(width: 16),
                 Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text('showBackIcon'),
                     Switch.adaptive(
@@ -111,6 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const SizedBox(width: 16),
                 Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text('showNextIcon'),
                     Switch.adaptive(
@@ -132,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
               isScrollable: isScrollable,
               onTabControllerUpdated: (controller) {},
               onTabChanged: (index) {},
-              onAddTabMoveTo: tabs.length,
+              // onAddTabMoveTo: MoveToTab.LAST,
               // backIcon: Icon(Icons.arrow_back),
               // nextIcon: Icon(Icons.arrow_forward),
               showBackIcon: showBackIcon,
