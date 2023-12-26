@@ -53,12 +53,16 @@ class _MyHomePageState extends State<MyHomePage> {
   List<TabData> tabs = [
     TabData(
       index: 1,
-      title: 'Tab 1',
+      title: const Tab(
+        child: Text('Tab 1'),
+      ),
       content: const Center(child: Text('Content for Tab 1')),
     ),
     TabData(
       index: 2,
-      title: 'Tab 2',
+      title: const Tab(
+        child: Text('Tab 2'),
+      ),
       content: const Center(child: Text('Content for Tab 2')),
     ),
     // Add more tabs as needed
@@ -166,7 +170,9 @@ class _MyHomePageState extends State<MyHomePage> {
       tabs.add(
         TabData(
           index: tabNumber,
-          title: 'Tab $tabNumber',
+          title: Tab(
+            child: Text('Tab $tabNumber'),
+          ),
           content: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

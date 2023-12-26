@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class TabData {
   final int index;
-  final String title;
+  final Tab title;
   final Widget content;
 
   TabData({required this.index, required this.title, required this.content});
@@ -41,7 +41,7 @@ class DynamicTabsWidget extends TabBar {
     this.nextIcon,
     this.showBackIcon,
     this.showNextIcon,
-    // Default Tab params :---------------------------------------
+    // Default Tab properties :---------------------------------------
     super.padding,
     super.indicatorColor,
     super.automaticIndicatorColorAdjustment = true,
@@ -218,10 +218,8 @@ class _DynamicTabsWidgetState extends State<DynamicTabsWidget>
                 child: TabBar(
                   isScrollable: widget.isScrollable,
                   controller: _tabController,
-                  tabs: widget.dynamicTabs
-                      .map((tab) => Tab(text: tab.title))
-                      .toList(),
-                  // Default Tab params :---------------------------------------
+                  tabs: widget.dynamicTabs.map((tab) => tab.title).toList(),
+                  // Default Tab properties :---------------------------------------
                   padding: widget.padding,
                   indicatorColor: widget.indicatorColor,
                   automaticIndicatorColorAdjustment:
