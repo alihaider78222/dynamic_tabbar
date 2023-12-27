@@ -7,8 +7,8 @@ With `DynamicTabWidget`, users can effortlessly manage and navigate through a li
 ## Screenshots
 
 <p float="left">
-  <img src="./screenshots/demo_1.gif" alt="dynamic_tab Demo 1" width="auto" height="540">
-  <img src="./screenshots/demo_2.gif" alt="dynamic_tab Demo 2" width="auto" height="540">
+  <img src="./screenshots/demo_1.gif" alt="dynamic_tab Demo 1" width="auto" height="610">
+  <img src="./screenshots/demo_2.gif" alt="dynamic_tab Demo 2" width="auto" height="610">
   <img src="./screenshots/demo_3.gif" alt="dynamic_tab Web Demo" height="auto">
 </p>
 
