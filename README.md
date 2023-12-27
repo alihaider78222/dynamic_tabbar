@@ -2,7 +2,15 @@
 
 A Flutter package that simplifies the implementation of dynamic tabs in your application. 
 
-With DynamicTabWidget, users can effortlessly manage and navigate through a list of [Tabs](https://api.flutter.dev/flutter/material/TabBar-class.html). The widget is designed to auto-update as <b>Tabs</b> are added or removed, providing a seamless and dynamic user experience.
+With `DynamicTabWidget`, users can effortlessly manage and navigate through a list of [Tabs](https://api.flutter.dev/flutter/material/TabBar-class.html). The widget is designed to auto-update as <b>Tabs</b> are added or removed, providing a seamless and dynamic user experience.
+
+## Demo
+
+<p float="left">
+  <img src="./screenshots/demo_1.gif" alt="dynamic_tab Demo 1" width="240" height="auto">
+  <img src="./screenshots/demo_2.gif" alt="dynamic_tab Demo 2" width="241.5" height="auto">
+  <img src="./screenshots/demo_3.gif" alt="dynamic_tab Web Demo" height="auto">
+</p>
 
 ## Installation
 

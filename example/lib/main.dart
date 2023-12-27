@@ -155,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onTabChanged: (index) {},
               onAddTabMoveTo: MoveToTab.LAST,
               // backIcon: Icon(Icons.keyboard_double_arrow_left),
-              nextIcon: Icon(Icons.keyboard_double_arrow_right),
+              // nextIcon: Icon(Icons.keyboard_double_arrow_right),
               showBackIcon: showBackIcon,
               showNextIcon: showNextIcon,
             ),

@@ -139,8 +139,9 @@ class _DynamicTabWidgetState extends State<DynamicTabWidget>
     super.didChangeDependencies();
 
     debugPrint('didChangeDependencies');
-    // _tabController = getTabController(initialIndex: widget.dynamicTabs.length - 1);
-    // widget.onTabControllerUpdated(_tabController = getTabController());
+    _tabController =
+        getTabController(initialIndex: widget.dynamicTabs.length - 1);
+    widget.onTabControllerUpdated(_tabController = getTabController());
 
     if (widget.onAddTabMoveTo != null) {
       debugPrint('moveTo : ${widget.onAddTabMoveTo}');
@@ -303,7 +304,7 @@ class _DynamicTabWidgetState extends State<DynamicTabWidget>
             ),
           ),
           // Text('tabController length ${_tabController?.length}'),
-          // Text('tabs length ${widget.dynamicTabs.length}')
+          // Text('tabs length ${widget.dynamicTabs.length}'),
           // Text('Active Tab ${activeTab + 1}'),
           // Text('_tabController.index ${_tabController!.index + 1}')
         ],
