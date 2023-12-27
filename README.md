@@ -80,7 +80,7 @@ import 'package:dynamic_tab/dynamic_tab.dart';
 
 - <b>Customization Options</b>: Customize the appearance and behavior of the DynamicTabWidget using parameters like ```backIcon, nextIcon, showBackIcon, and showNextIcon```.
 
-- Tab Position : Specify the position to which cursor moves to after adding new Tab using the ```onAddTabMoveTo``` parameter.
+- <b>Tab Position</b> : Specify the position to which cursor moves to after adding new Tab using the ```onAddTabMoveTo``` property.
 
 ### Parameters
 
@@ -105,8 +105,42 @@ import 'package:dynamic_tab/dynamic_tab.dart';
 ### isScrollable
 
 `isScrollable: false`  | `isScrollable: true`
-------------- | -------------
- |
+-- | --
+ <img src="screenshots/scrollable_false.gif" alt="isScrollable.false"> |  <img src="screenshots/scrollable_true.gif" alt="isScrollable.true">
+
+### showBackIcon
+
+If ```isScrollable``` is false, this property is ignored.
+
+`showBackIcon: false`  | `showBackIcon: true`
+-- | --
+ <img src="screenshots/showBackIcon_false.png" alt="isScrollable.true"> | <img src="screenshots/showIcon_true.png" alt="isScrollable.true">
+
+### showNextIcon
+
+If ```isScrollable``` is false, this property is ignored.
+
+`showNextIcon: false`  | `showNextIcon: true`
+-- | --
+ <img src="screenshots/showNextIcon_false.png" alt="isScrollable.true"> | <img src="screenshots/showIcon_true.png" alt="isScrollable.true">
+
+### backIcon
+
+We can use custom Icon for back button, If ```isScrollable``` is false, this property is ignored.
+
+`backIcon: Icon()`  | `backIcon: null`
+-- | --
+`Icon(Icons.keyboard_double_arrow_left)`  | Default back icon will be used
+ <img src="screenshots/backIcon_custom.gif" alt="isScrollable.true"> | <img src="screenshots/showIcon_true.png" alt="isScrollable.true">
+
+### nextIcon
+
+We can use custom Icon for next button, If ```isScrollable``` is false, this property is ignored.
+
+`nextIcon: Icon()`  | `nextIcon: null`
+-- | --
+`Icon(Icons.keyboard_double_arrow_right)`  | Default back icon will be used
+ <img src="screenshots/nextIcon_custom.gif" alt="nextIcon_custom"> | <img src="screenshots/showIcon_true.png" alt="default_icons">
 
 ## Example
 
