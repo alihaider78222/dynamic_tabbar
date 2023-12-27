@@ -152,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
               isScrollable: isScrollable,
               onTabControllerUpdated: (controller) {},
               onTabChanged: (index) {},
-              // onAddTabMoveTo: MoveToTab.LAST,
+              onAddTabMoveTo: MoveToTab.LAST,
               // backIcon: Icon(Icons.arrow_back),
               // nextIcon: Icon(Icons.arrow_forward),
               showBackIcon: showBackIcon,

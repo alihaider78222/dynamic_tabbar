@@ -11,23 +11,63 @@ class TabData {
   TabData({required this.index, required this.title, required this.content});
 }
 
+/// Defines where the Tab indicator animation moves to when new Tab is added.
+///
+///
 enum MoveToTab {
+  /// The IDOL indicator will remain on current Tab when new Tab is added.
   IDOL,
   // NEXT,
   // PREVIOUS,
   // FIRST,
+  /// The LAST indicator will move to the Last Tab when new Tab is added.
   LAST,
 }
 
 /// Dynamic Tabs.
 class DynamicTabsWidget extends TabBar {
+  /// List of Tabs.
+  ///
+  /// TabData contains [index] of the tab and the title which is extension of [TabBar] header.
+  /// and the [content] is the extension of [TabBarView] so all the page content is displayed in this section
+  ///
+  ///
   final List<TabData> dynamicTabs;
   final Function(TabController) onTabControllerUpdated;
   final Function(TabController)? onTabChanged;
+
+  /// Defines where the Tab indicator animation moves to when new Tab is added.
+  ///
+  /// TabData contains two states at the moment [IDOL] and [LAST]
+  ///
   final MoveToTab? onAddTabMoveTo;
+
+  /// The back icon of the TabBar when [isScrollable] is true.
+  ///
+  /// If this parameter is null, then the default back icon is used.
+  ///
+  /// If [isScrollable] is false, this property is ignored.
   final Widget? backIcon;
+
+  /// The forward icon of the TabBar when [isScrollable] is true.
+  ///
+  /// If this parameter is null, then the default forward icon is used.
+  ///
+  /// If [isScrollable] is false, this property is ignored.
   final Widget? nextIcon;
+
+  /// The showBackIcon property of DynamicTabsWidget is used when [isScrollable] is true.
+  ///
+  /// If this parameter is null, then the default value is [true].
+  ///
+  /// If [isScrollable] is false, this property is ignored.
   final bool? showBackIcon;
+
+  /// The showNextIcon property of DynamicTabsWidget is used when [isScrollable] is true.
+  ///
+  /// If this parameter is null, then the default value is [true].
+  ///
+  /// If [isScrollable] is false, this property is ignored.
   final bool? showNextIcon;
 
   DynamicTabsWidget({
