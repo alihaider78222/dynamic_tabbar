@@ -18,7 +18,7 @@ enum MoveToTab {
 }
 
 /// Dynamic Tabs.
-class DynamicTabsWidget extends TabBar {
+class DynamicTabWidget extends TabBar {
   final List<TabData> dynamicTabs;
   final Function(TabController) onTabControllerUpdated;
   final Function(TabController)? onTabChanged;
@@ -28,7 +28,7 @@ class DynamicTabsWidget extends TabBar {
   final bool? showBackIcon;
   final bool? showNextIcon;
 
-  DynamicTabsWidget({
+  DynamicTabWidget({
     super.key,
     required this.dynamicTabs,
     required this.onTabControllerUpdated,
@@ -67,10 +67,10 @@ class DynamicTabsWidget extends TabBar {
 
   @override
   // ignore: library_private_types_in_public_api
-  _DynamicTabsWidgetState createState() => _DynamicTabsWidgetState();
+  _DynamicTabWidgetState createState() => _DynamicTabWidgetState();
 }
 
-class _DynamicTabsWidgetState extends State<DynamicTabsWidget>
+class _DynamicTabWidgetState extends State<DynamicTabWidget>
     with TickerProviderStateMixin {
   // Tab Controller
   TabController? _tabController;
@@ -106,7 +106,7 @@ class _DynamicTabsWidgetState extends State<DynamicTabsWidget>
   }
 
   @override
-  void didUpdateWidget(covariant DynamicTabsWidget oldWidget) {
+  void didUpdateWidget(covariant DynamicTabWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     debugPrint('moveTo didUpdateWidget : ${widget.onAddTabMoveTo}');
 

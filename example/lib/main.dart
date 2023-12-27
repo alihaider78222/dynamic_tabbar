@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Example for Dynamic Tabs'),
+      home: const MyHomePage(title: 'Example for Dynamic Tab'),
     );
 
     // return CupertinoApp(
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
     //     DefaultCupertinoLocalizations.delegate,
     //     DefaultWidgetsLocalizations.delegate,
     //   ],
-    //   home: const MyHomePage(title: 'Example for Dynamic Tabs'),
+    //   home: const MyHomePage(title: 'Example for Dynamic Tab'),
     // );
   }
 }
@@ -81,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -147,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Expanded(
-            child: DynamicTabsWidget(
+            child: DynamicTabWidget(
               dynamicTabs: tabs,
               isScrollable: isScrollable,
               onTabControllerUpdated: (controller) {},
