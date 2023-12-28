@@ -14,7 +14,7 @@ platforms:
 
 screenshots:
   - description: 'This gif shows the demo of dynamic tabbar.'
-    path: https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/master/screenshots/demo_2.gif
+    path: screenshots/demo_2.gif
 
 topics:
   - dynamic
