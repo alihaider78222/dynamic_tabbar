@@ -2,9 +2,25 @@
 
 name: dynamic_tabbar
 description: "Flutter package for creating dynamic TabBar"
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/alihaider78222/dynamic_tabbar
 issue_tracker: https://github.com/alihaider78222/dynamic_tabbar/issues
+repository: https://github.com/alihaider78222/dynamic_tabbar
+
+platforms:
+  android:
+  ios:
+  web:
+
+screenshots:
+  - description: 'This gif shows the demo of dynamic tabbar.'
+    path: https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/master/screenshots/demo_2.gif
+
+topics:
+  - dynamic
+  - bar
+  - tabbar
+  - widget
 
 environment:
   sdk: '>=3.2.1 <4.0.0'
