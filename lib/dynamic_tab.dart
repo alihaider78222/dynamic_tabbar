@@ -15,13 +15,13 @@ class TabData {
 ///
 ///
 enum MoveToTab {
-  /// The IDOL indicator will remain on current Tab when new Tab is added.
-  IDOL,
-  // NEXT,
-  // PREVIOUS,
-  // FIRST,
-  /// The LAST indicator will move to the Last Tab when new Tab is added.
-  LAST,
+  /// The [idol] indicator will remain on current Tab when new Tab is added.
+  idol,
+  // next,
+  // previous,
+  // first,
+  /// The [last] indicator will move to the Last Tab when new Tab is added.
+  last,
 }
 
 /// Dynamic Tabs.
@@ -180,7 +180,7 @@ class _DynamicTabWidgetState extends State<DynamicTabWidget>
     return TabController(
       initialIndex: initialIndex,
       length: widget.dynamicTabs.length,
-      vsync: this as TickerProvider,
+      vsync: this,
     )
       // ..addListener(_updatePage);
       ..addListener(() {
@@ -219,10 +219,10 @@ class _DynamicTabWidgetState extends State<DynamicTabWidget>
       // case MoveToTab.FIRST:
       //   return 1;
 
-      case MoveToTab.LAST:
+      case MoveToTab.last:
         return widget.dynamicTabs.length - 1;
 
-      case MoveToTab.IDOL:
+      case MoveToTab.idol:
         return null;
 
       case null:
