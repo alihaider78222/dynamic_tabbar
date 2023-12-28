@@ -1,4 +1,4 @@
-library dynamic_tab;
+library dynamic_tabbar;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ enum MoveToTab {
 }
 
 /// Dynamic Tabs.
-class DynamicTabWidget extends TabBar {
+class DynamicTabBarWidget extends TabBar {
   /// List of Tabs.
   ///
   /// TabData contains [index] of the tab and the title which is extension of [TabBar] header.
@@ -56,21 +56,21 @@ class DynamicTabWidget extends TabBar {
   /// If [isScrollable] is false, this property is ignored.
   final Widget? nextIcon;
 
-  /// The showBackIcon property of DynamicTabWidget is used when [isScrollable] is true.
+  /// The showBackIcon property of DynamicTabBarWidget is used when [isScrollable] is true.
   ///
   /// If this parameter is null, then the default value is [true].
   ///
   /// If [isScrollable] is false, this property is ignored.
   final bool? showBackIcon;
 
-  /// The showNextIcon property of DynamicTabWidget is used when [isScrollable] is true.
+  /// The showNextIcon property of DynamicTabBarWidget is used when [isScrollable] is true.
   ///
   /// If this parameter is null, then the default value is [true].
   ///
   /// If [isScrollable] is false, this property is ignored.
   final bool? showNextIcon;
 
-  DynamicTabWidget({
+  DynamicTabBarWidget({
     super.key,
     required this.dynamicTabs,
     required this.onTabControllerUpdated,
@@ -109,10 +109,10 @@ class DynamicTabWidget extends TabBar {
 
   @override
   // ignore: library_private_types_in_public_api
-  _DynamicTabWidgetState createState() => _DynamicTabWidgetState();
+  _DynamicTabBarWidgetState createState() => _DynamicTabBarWidgetState();
 }
 
-class _DynamicTabWidgetState extends State<DynamicTabWidget>
+class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
     with TickerProviderStateMixin {
   // Tab Controller
   TabController? _tabController;
@@ -149,7 +149,7 @@ class _DynamicTabWidgetState extends State<DynamicTabWidget>
   }
 
   @override
-  void didUpdateWidget(covariant DynamicTabWidget oldWidget) {
+  void didUpdateWidget(covariant DynamicTabBarWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     debugPrint('moveTo didUpdateWidget : ${widget.onAddTabMoveTo}');
 

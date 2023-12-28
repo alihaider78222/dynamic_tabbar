@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-// Package class
-import 'package:dynamic_tab/dynamic_tab.dart';
-
-// Example class
-// import 'dynamic_tab_widget_test.dart';
+import 'package:dynamic_tabbar/dynamic_tabbar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,18 +17,18 @@ class MyApp extends StatelessWidget {
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Example for Dynamic Tab'),
+      home: const MyHomePage(title: 'Example for Dynamic TabBar'),
     );
 
     // return CupertinoApp(
-    //   title: 'Dynamic Tab',
+    //   title: 'Dynamic TabBar',
     //   theme: CupertinoThemeData(brightness: Brightness.light),
     //   localizationsDelegates: [
     //     DefaultMaterialLocalizations.delegate,
     //     DefaultCupertinoLocalizations.delegate,
     //     DefaultWidgetsLocalizations.delegate,
     //   ],
-    //   home: const MyHomePage(title: 'Example for Dynamic Tab'),
+    //   home: const MyHomePage(title: 'Example for Dynamic TabBar'),
     // );
   }
 }
@@ -148,12 +144,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Expanded(
-            child: DynamicTabWidget(
+            child: DynamicTabBarWidget(
               dynamicTabs: tabs,
               isScrollable: isScrollable,
               onTabControllerUpdated: (controller) {},
               onTabChanged: (index) {},
-              onAddTabMoveTo: MoveToTab.LAST,
+              onAddTabMoveTo: MoveToTab.last,
               // backIcon: Icon(Icons.keyboard_double_arrow_left),
               // nextIcon: Icon(Icons.keyboard_double_arrow_right),
               showBackIcon: showBackIcon,

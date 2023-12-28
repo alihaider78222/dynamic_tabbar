@@ -1,39 +1,39 @@
-# dynamic_tab
+# dynamic_tabbar
 
 A Flutter package that simplifies the implementation of dynamic TabBar in your application.
 
-With `DynamicTabWidget`, users can effortlessly manage and navigate through a list of [Tabs](https://api.flutter.dev/flutter/material/TabBar-class.html). The widget is designed to auto-update as <b>Tabs</b> are added or removed, providing a seamless and dynamic user experience.
+With `DynamicTabBarWidget`, users can effortlessly manage and navigate through a list of [Tabs](https://api.flutter.dev/flutter/material/TabBar-class.html). The widget is designed to auto-update as <b>Tabs</b> are added or removed, providing a seamless and dynamic user experience.
 
 ## Screenshots
 
 <p float="left">
-  <img src="./screenshots/demo_1.gif" alt="dynamic_tab Demo 1" width="auto" height="610">
-  <img src="./screenshots/demo_2.gif" alt="dynamic_tab Demo 2" width="auto" height="610">
-  <img src="./screenshots/demo_3.gif" alt="dynamic_tab Web Demo" height="auto">
+  <img src="./screenshots/demo_1.gif" alt="dynamic_tabbar Demo 1" width="auto" height="610">
+  <img src="./screenshots/demo_2.gif" alt="dynamic_tabbar Demo 2" width="auto" height="610">
+  <img src="./screenshots/demo_3.gif" alt="dynamic_tabbar Web Demo" height="auto">
 </p>
 
 ## Installation
 
 1. Add dependency to ```pubspec.yaml``` file:</br>
-Get the latest version from the 'Installing' tab on [pub.dev](https://pub.dev/packages/dynamic_tab/install)
+Get the latest version from the 'Installing' tab on [pub.dev](https://pub.dev/packages/dynamic_tabbar/install)
 
 ```dart
 dependencies:
-  dynamic_tab: ^1.0.0
+  dynamic_tabbar: ^1.0.0
 ```
 
 2. Import the package
 
 ```dart
-import 'package:dynamic_tab/dynamic_tab.dart';
+import 'package:dynamic_tabbar/dynamic_tabbar.dart';
 ```
 
-3. Adding CreditCardWidget
+3. Adding DynamicTabBarWidget
 
 *With required parameters*
 
 ```dart
- DynamicTabWidget(
+ DynamicTabBarWidget(
     dynamicTabs: tabs,
 );
 ```
@@ -41,12 +41,12 @@ import 'package:dynamic_tab/dynamic_tab.dart';
 *With optional parameters*
 
 ```dart
- DynamicTabWidget(
+ DynamicTabBarWidget(
     dynamicTabs: tabs,
     isScrollable: isScrollable,
     onTabControllerUpdated: (controller) {},
     onTabChanged: (index) {},
-    onAddTabMoveTo: MoveToTab.LAST,
+    onAddTabMoveTo: MoveToTab.last,
     backIcon: Icon(Icons.arrow_back),
     nextIcon: Icon(Icons.arrow_forward),
     showBackIcon: showBackIcon,
@@ -82,11 +82,11 @@ import 'package:dynamic_tab/dynamic_tab.dart';
 
 ## Features
 
-- <b>Dynamic Tab Management</b>: Users can push or pop items in the ```List<TabData> tabs``` array, and the <b>DynamicTabWidget</b> will auto-update accordingly.
+- <b>Dynamic Tab Management</b>: Users can push or pop items in the ```List<TabData> tabs``` array, and the <b>DynamicTabBarWidget</b> will auto-update accordingly.
 
 - <b>Tab Navigation</b>: Implement the ```onTabChanged``` callback to handle tab change events.
 
-- <b>Customization Options</b>: Customize the appearance and behavior of the DynamicTabWidget using parameters like ```backIcon, nextIcon, showBackIcon, and showNextIcon```.
+- <b>Customization Options</b>: Customize the appearance and behavior of the DynamicTabBarWidget using parameters like ```backIcon, nextIcon, showBackIcon, and showNextIcon```.
 
 - <b>Tab Position</b> : Specify the position to which cursor moves to after adding new Tab using the ```onAddTabMoveTo``` property.
 
@@ -98,7 +98,7 @@ import 'package:dynamic_tab/dynamic_tab.dart';
 
 - <b>onTabChanged</b>: Callback function triggered when a tab is changed.
 
-- <b>onAddTabMoveTo</b>: Enum value (MoveToTab.FIRST, MoveToTab.LAST, MoveToTab.CURRENT) specifying where a new tab should be added.
+- <b>onAddTabMoveTo</b>: Enum value (MoveToTab.idol, MoveToTab.last) specifying where a new tab should be added.
 
 - <b>backIcon</b>: Custom icon for the "Back" button, If ```isScrollable``` is false, this property is ignored.
 
@@ -156,7 +156,7 @@ Check out the **example** app in the [example](example) directory for a complete
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:dynamic_tab/dynamic_tab.dart';
+import 'package:dynamic_tabbar/dynamic_tabbar.dart';
 
 
 class DynamicTabExample extends StatefulWidget {
@@ -262,12 +262,12 @@ class _DynamicTabExampleState extends State<DynamicTabExample> {
             ),
           ),
           Expanded(
-            child: DynamicTabWidget(
+            child: DynamicTabBarWidget(
               dynamicTabs: tabs,
               isScrollable: isScrollable,
               onTabControllerUpdated: (controller) {},
               onTabChanged: (index) {},
-              onAddTabMoveTo: MoveToTab.LAST,
+              onAddTabMoveTo: MoveToTab.last,
               showBackIcon: showBackIcon,
               showNextIcon: showNextIcon,
             ),
@@ -313,7 +313,7 @@ class _DynamicTabExampleState extends State<DynamicTabExample> {
 
 ## Contribution
 
-Of course the project is open source, and you can contribute to it [repository link](https://github.com/alihaider78222/dynamic_tab)
+Of course the project is open source, and you can contribute to it [repository link](https://github.com/alihaider78222/dynamic_tabbar)
 
 - If you **found a bug**, open an issue.
 

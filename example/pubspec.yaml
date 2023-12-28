@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dynamic_tab:
+  dynamic_tabbar:
     path: ../
 
 
