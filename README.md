@@ -7,9 +7,9 @@ With `DynamicTabBarWidget`, users can effortlessly manage and navigate through a
 ## Screenshots
 
 <p float="left">
-  <img src="./screenshots/demo_1.gif" alt="dynamic_tabbar Demo 1" width="auto" height="610">
-  <img src="./screenshots/demo_2.gif" alt="dynamic_tabbar Demo 2" width="auto" height="610">
-  <img src="./screenshots/demo_3.gif" alt="dynamic_tabbar Web Demo" height="auto">
+  <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/demo_1.gif" alt="dynamic_tabbar Demo 1" width="auto" height="610">
+  <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/demo_2.gif" alt="dynamic_tabbar Demo 2" width="auto" height="610">
+  <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/demo_3.gif" alt="dynamic_tabbar Web Demo" height="auto">
 </p>
 
 ## Installation
@@ -114,7 +114,7 @@ import 'package:dynamic_tabbar/dynamic_tabbar.dart';
 
 `isScrollable: false`  | `isScrollable: true`
 -- | --
- <img src="screenshots/scrollable_false.gif" alt="isScrollable.false"> |  <img src="screenshots/scrollable_true.gif" alt="isScrollable.true">
+ <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/scrollable_false.gif" alt="isScrollable.false"> |  <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/scrollable_true.gif" alt="isScrollable.true">
 
 ### showBackIcon
 
@@ -122,7 +122,7 @@ If ```isScrollable``` is false, this property is ignored.
 
 `showBackIcon: false`  | `showBackIcon: true`
 -- | --
- <img src="screenshots/showBackIcon_false.png" alt="isScrollable.true"> | <img src="screenshots/showIcon_true.png" alt="isScrollable.true">
+ <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/showBackIcon_false.png" alt="isScrollable.true"> | <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/showIcon_true.png" alt="isScrollable.true">
 
 ### showNextIcon
 
@@ -130,7 +130,7 @@ If ```isScrollable``` is false, this property is ignored.
 
 `showNextIcon: false`  | `showNextIcon: true`
 -- | --
- <img src="screenshots/showNextIcon_false.png" alt="isScrollable.true"> | <img src="screenshots/showIcon_true.png" alt="isScrollable.true">
+ <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/showNextIcon_false.png" alt="isScrollable.true"> | <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/showIcon_true.png" alt="isScrollable.true">
 
 ### backIcon
 
@@ -139,7 +139,7 @@ We can use custom Icon for back button, If ```isScrollable``` is false, this pro
 `backIcon: Icon()`  | `backIcon: null`
 -- | --
 `Icon(Icons.keyboard_double_arrow_left)`  | Default back icon will be used
- <img src="screenshots/backIcon_custom.gif" alt="isScrollable.true"> | <img src="screenshots/showIcon_true.png" alt="isScrollable.true">
+ <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/backIcon_custom.gif" alt="isScrollable.true"> | <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/showIcon_true.png" alt="isScrollable.true">
 
 ### nextIcon
 
@@ -148,7 +148,7 @@ We can use custom Icon for next button, If ```isScrollable``` is false, this pro
 `nextIcon: Icon()`  | `nextIcon: null`
 -- | --
 `Icon(Icons.keyboard_double_arrow_right)`  | Default back icon will be used
- <img src="screenshots/nextIcon_custom.gif" alt="nextIcon_custom"> | <img src="screenshots/showIcon_true.png" alt="default_icons">
+ <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/nextIcon_custom.gif" alt="nextIcon_custom"> | <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/showIcon_true.png" alt="default_icons">
 
 ## Example
 

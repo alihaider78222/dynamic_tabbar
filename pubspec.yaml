@@ -2,7 +2,7 @@
 
 name: dynamic_tabbar
 description: "Flutter package for creating dynamic TabBar"
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/alihaider78222/dynamic_tabbar
 issue_tracker: https://github.com/alihaider78222/dynamic_tabbar/issues
 repository: https://github.com/alihaider78222/dynamic_tabbar
@@ -13,8 +13,10 @@ platforms:
   web:
 
 screenshots:
-  - description: 'This gif shows the demo of dynamic tabbar.'
+  - description: 'This gif shows the demo of dynamic tabbar with scroll.'
     path: screenshots/demo_2.gif
+  - description: 'This gif shows the demo of dynamic tabbar without scroll..'
+    path: screenshots/demo_1.gif
 
 topics:
   - dynamic
