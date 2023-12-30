@@ -19,17 +19,6 @@ class MyApp extends StatelessWidget {
       ),
       home: const MyHomePage(title: 'Example for Dynamic TabBar'),
     );
-
-    // return CupertinoApp(
-    //   title: 'Dynamic TabBar',
-    //   theme: CupertinoThemeData(brightness: Brightness.light),
-    //   localizationsDelegates: [
-    //     DefaultMaterialLocalizations.delegate,
-    //     DefaultCupertinoLocalizations.delegate,
-    //     DefaultWidgetsLocalizations.delegate,
-    //   ],
-    //   home: const MyHomePage(title: 'Example for Dynamic TabBar'),
-    // );
   }
 }
 

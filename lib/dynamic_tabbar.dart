@@ -79,8 +79,8 @@ class DynamicTabBarWidget extends TabBar {
     super.isScrollable,
     this.backIcon,
     this.nextIcon,
-    this.showBackIcon,
-    this.showNextIcon,
+    this.showBackIcon = true,
+    this.showNextIcon = true,
     // Default Tab properties :---------------------------------------
     super.padding,
     super.indicatorColor,
@@ -181,9 +181,7 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
       initialIndex: initialIndex,
       length: widget.dynamicTabs.length,
       vsync: this,
-    )
-      // ..addListener(_updatePage);
-      ..addListener(() {
+    )..addListener(() {
         setState(() {
           activeTab = _tabController?.index ?? 0;
         });

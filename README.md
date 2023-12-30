@@ -7,8 +7,9 @@ With `DynamicTabBarWidget`, users can effortlessly manage and navigate through a
 ## Screenshots
 
 <p float="left">
-  <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/demo_1.gif" alt="dynamic_tabbar Demo 1" width="auto" height="610">
-  <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/demo_2.gif" alt="dynamic_tabbar Demo 2" width="auto" height="610">
+  <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/demo_1.gif" alt="dynamic_tabbar Demo 1" width="auto" height="580">
+  <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/demo_2.gif" alt="dynamic_tabbar Demo 2" width="auto" height="580">
+  <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/demo_4.gif" alt="dynamic_tabbar Demo 4" width="auto" height="580">
   <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/demo_3.gif" alt="dynamic_tabbar Web Demo" height="auto">
 </p>
 

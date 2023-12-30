@@ -6,6 +6,7 @@ version: 1.0.2
 homepage: https://github.com/alihaider78222/dynamic_tabbar
 issue_tracker: https://github.com/alihaider78222/dynamic_tabbar/issues
 repository: https://github.com/alihaider78222/dynamic_tabbar
+documentation: https://github.com/alihaider78222/dynamic_tabbar/docs
 
 platforms:
   android:
