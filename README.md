@@ -1,13 +1,12 @@
 ![dynamic_tabbar](https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/banner.png)
 
-
-# dynamic_tabbar
+# Dynamic TabBar
 
 A Flutter package that simplifies the implementation of dynamic TabBar in your application.
 
-With `DynamicTabBarWidget`, users can effortlessly manage and navigate through a list of [Tabs](https://api.flutter.dev/flutter/material/TabBar-class.html). The widget is designed to auto-update as <b>Tabs</b> are added or removed, providing a seamless and dynamic user experience.
+With [`DynamicTabBarWidget`](https://pub.dev/packages/dynamic_tabbar), users can effortlessly manage and navigate through a list of [Tabs](https://api.flutter.dev/flutter/material/TabBar-class.html). The widget is designed to auto-update as <b>Tabs</b> are added or removed, providing a seamless and dynamic user experience.
 
-## Screenshots
+## 📱 Screenshots
 
 <p float="left">
   <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/demo_1.gif" alt="dynamic_tabbar Demo 1" width="auto" height="570">
@@ -16,7 +15,7 @@ With `DynamicTabBarWidget`, users can effortlessly manage and navigate through a
   <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/demo_3.gif" alt="dynamic_tabbar Web Demo" height="auto">
 </p>
 
-## Installation
+## 🛠 Installation
 
 1. Add dependency to ```pubspec.yaml``` file:</br>
 Get the latest version from the 'Installing' tab on [pub.dev](https://pub.dev/packages/dynamic_tabbar/install)
@@ -84,7 +83,7 @@ import 'package:dynamic_tabbar/dynamic_tabbar.dart';
 
 ```
 
-## Features
+## 🌟 Features
 
 - <b>Dynamic Tab Management</b>: Users can push or pop items in the ```List<TabData> tabs``` array, and the <b>DynamicTabBarWidget</b> will auto-update accordingly.
 
@@ -94,7 +93,7 @@ import 'package:dynamic_tabbar/dynamic_tabbar.dart';
 
 - <b>Tab Position</b> : Specify the position to which cursor moves to after adding new Tab using the ```onAddTabMoveTo``` property.
 
-### Parameters
+### 🧰 Parameters
 
 - <b>dynamicTabs</b>: List of TabData objects representing the dynamic tabs.
 
@@ -112,7 +111,7 @@ import 'package:dynamic_tabbar/dynamic_tabbar.dart';
 
 - <b>showNextIcon</b>: Boolean to show or hide the ```Next icon``` button, If ```isScrollable``` is false, this property is ignored.
 
-## How to use
+## 📚 How to use
 
 ### isScrollable
 
@@ -154,7 +153,7 @@ We can use custom Icon for next button, If ```isScrollable``` is false, this pro
 `Icon(Icons.keyboard_double_arrow_right)`  | Default back icon will be used
  <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/nextIcon_custom.gif" alt="nextIcon_custom"> | <img src="https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/showIcon_true.png" alt="default_icons">
 
-## Example
+## 💻 Example
 
 Check out the **example** app in the [example](example) directory for a complete example.
 
@@ -315,7 +314,7 @@ class _DynamicTabExampleState extends State<DynamicTabExample> {
 
 ```
 
-## Contribution
+## 📝Contribution
 
 Of course the project is open source, and you can contribute to it [repository link](https://github.com/alihaider78222/dynamic_tabbar)
 
@@ -325,10 +324,11 @@ Of course the project is open source, and you can contribute to it [repository l
 
 - If you **want to contribute**, submit a pull request.
 
-## License
+## 💳 License
 
-This project is licensed under the MIT License - see the [LICENSE](https://choosealicense.com/licenses/mit/) file for details.
+This project is [LICENSED](https://choosealicense.com/licenses/mit/) under the MIT License. Use it freely, but let's play nice and give credit where it's due!
 
-## Conclusion
+## 🎉 Conclusion
 
-I will be happy to answer any questions that you may have on this approach, If you liked this package, don't forget to smash the ⭐.
+I will be happy to answer any questions that you may have on this approach,</br>
+If you liked this package, don't forget to show some ❤️ by smashing the ⭐.
