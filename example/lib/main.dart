@@ -136,8 +136,12 @@ class _MyHomePageState extends State<MyHomePage> {
             child: DynamicTabBarWidget(
               dynamicTabs: tabs,
               isScrollable: isScrollable,
-              onTabControllerUpdated: (controller) {},
-              onTabChanged: (index) {},
+              onTabControllerUpdated: (controller) {
+                debugPrint("onTabControllerUpdated");
+              },
+              onTabChanged: (index) {
+                debugPrint("Tab changed: $index");
+              },
               onAddTabMoveTo: MoveToTab.last,
               // backIcon: Icon(Icons.keyboard_double_arrow_left),
               // nextIcon: Icon(Icons.keyboard_double_arrow_right),

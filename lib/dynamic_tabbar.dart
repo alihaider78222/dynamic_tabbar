@@ -34,7 +34,7 @@ class DynamicTabBarWidget extends TabBar {
   ///
   final List<TabData> dynamicTabs;
   final Function(TabController) onTabControllerUpdated;
-  final Function(TabController)? onTabChanged;
+  final Function(int?)? onTabChanged;
 
   /// Defines where the Tab indicator animation moves to when new Tab is added.
   ///
@@ -122,42 +122,24 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
   @override
   void initState() {
     super.initState();
-    // _tabController = getTabController();
-    // var activeTab = getActiveTab();
-    debugPrint('initState _tabController');
     _tabController = getTabController(initialIndex: activeTab);
-
-    // _tabController?.addListener(() {
-    //   setState(() {
-    //     activeTab = _tabController?.index ?? 0;
-    //   });
-    // });
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    debugPrint('didChangeDependencies');
     _tabController =
         getTabController(initialIndex: widget.dynamicTabs.length - 1);
     widget.onTabControllerUpdated(_tabController = getTabController());
-
-    if (widget.onAddTabMoveTo != null) {
-      debugPrint('moveTo : ${widget.onAddTabMoveTo}');
-    }
   }
 
   @override
   void didUpdateWidget(covariant DynamicTabBarWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    debugPrint('moveTo didUpdateWidget : ${widget.onAddTabMoveTo}');
 
     if (_tabController?.length != widget.dynamicTabs.length) {
-      debugPrint('Tab controller updated');
       var activeTabIndex = getActiveTab();
-      debugPrint('activeTab : $activeTabIndex');
-      debugPrint('didUpdateWidget _tabController');
       _tabController = getTabController(initialIndex: activeTabIndex);
 
       var tabIndex = getOnAddMoveToTab(widget.onAddTabMoveTo);
@@ -184,6 +166,9 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
     )..addListener(() {
         setState(() {
           activeTab = _tabController?.index ?? 0;
+          if (_tabController?.indexIsChanging == true) {
+            widget.onTabChanged!(_tabController?.index);
+          }
         });
       });
   }
