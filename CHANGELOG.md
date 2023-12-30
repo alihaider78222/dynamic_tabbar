@@ -1,3 +1,9 @@
+# 1.0.3
+
+* onTabChanged callback fix
+* Scroll behavior for Web added
+* Example 2 added
+
 # 1.0.2
 
 * pubspec.yaml screenshot fixes

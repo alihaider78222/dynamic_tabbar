@@ -1,12 +1,11 @@
 # package developed by @alihaider78222
 
 name: dynamic_tabbar
-description: "Flutter package for creating dynamic TabBar"
-version: 1.0.2
+description: "Flutter package to handle dynamic Tabs (TabBar and TabBarView) in a easiest way."
+version: 1.0.3
 homepage: https://github.com/alihaider78222/dynamic_tabbar
 issue_tracker: https://github.com/alihaider78222/dynamic_tabbar/issues
 repository: https://github.com/alihaider78222/dynamic_tabbar
-documentation: https://github.com/alihaider78222/dynamic_tabbar/docs
 
 platforms:
   android:
@@ -18,6 +17,8 @@ screenshots:
     path: screenshots/demo_2.gif
   - description: 'This gif shows the demo of dynamic tabbar without scroll..'
     path: screenshots/demo_1.gif
+  - description: 'This gif shows the demo of dynamic tabbar example with categories fetched from API.'
+    path: screenshots/demo_4.gif
 
 topics:
   - dynamic

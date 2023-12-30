@@ -8,13 +8,11 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Example for Dynamic TabBar'),
@@ -73,7 +71,6 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Wrap(
               direction: Axis.horizontal,
               alignment: WrapAlignment.center,
-              // mainAxisSize: MainAxisSize.min,
               children: [
                 ElevatedButton(
                   onPressed: addTab,

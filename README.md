@@ -1,3 +1,6 @@
+![dynamic_tabbar](https://raw.githubusercontent.com/alihaider78222/dynamic_tabbar/main/screenshots/banner.png)
+
+
 # dynamic_tabbar
 
 A Flutter package that simplifies the implementation of dynamic TabBar in your application.
@@ -18,9 +21,9 @@ With `DynamicTabBarWidget`, users can effortlessly manage and navigate through a
 1. Add dependency to ```pubspec.yaml``` file:</br>
 Get the latest version from the 'Installing' tab on [pub.dev](https://pub.dev/packages/dynamic_tabbar/install)
 
-```dart
+```yaml
 dependencies:
-  dynamic_tabbar: ^1.0.0
+  dynamic_tabbar: <latest_version>
 ```
 
 2. Import the package
