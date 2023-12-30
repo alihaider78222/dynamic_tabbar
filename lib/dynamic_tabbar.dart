@@ -238,74 +238,78 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
   @override
   Widget build(BuildContext context) {
     // _tabController = getTabController(initialIndex: widget.dynamicTabs.length - 1);
-    return DefaultTabController(
-      length: widget.dynamicTabs.length,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Row(
-            children: [
-              if (widget.isScrollable == true && widget.showBackIcon == true)
-                IconButton(
-                  icon: widget.backIcon ??
-                      const Icon(
-                        Icons.arrow_back_ios,
-                      ),
-                  onPressed: _moveToPreviousTab,
+    return ScrollConfiguration(
+      behavior: ScrollConfiguration.of(context).copyWith(
+        dragDevices: {
+          PointerDeviceKind.touch,
+          PointerDeviceKind.mouse,
+        },
+      ),
+      child: DefaultTabController(
+        length: widget.dynamicTabs.length,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Row(
+              children: [
+                if (widget.isScrollable == true && widget.showBackIcon == true)
+                  IconButton(
+                    icon: widget.backIcon ??
+                        const Icon(
+                          Icons.arrow_back_ios,
+                        ),
+                    onPressed: _moveToPreviousTab,
+                  ),
+                Expanded(
+                  child: TabBar(
+                    isScrollable: widget.isScrollable,
+                    controller: _tabController,
+                    tabs: widget.dynamicTabs.map((tab) => tab.title).toList(),
+                    // Default Tab properties :---------------------------------------
+                    padding: widget.padding,
+                    indicatorColor: widget.indicatorColor,
+                    automaticIndicatorColorAdjustment:
+                        widget.automaticIndicatorColorAdjustment,
+                    indicatorWeight: widget.indicatorWeight,
+                    indicatorPadding: widget.indicatorPadding,
+                    indicator: widget.indicator,
+                    indicatorSize: widget.indicatorSize,
+                    dividerColor: widget.dividerColor,
+                    dividerHeight: widget.dividerHeight,
+                    labelColor: widget.labelColor,
+                    labelStyle: widget.labelStyle,
+                    labelPadding: widget.labelPadding,
+                    unselectedLabelColor: widget.unselectedLabelColor,
+                    unselectedLabelStyle: widget.unselectedLabelStyle,
+                    dragStartBehavior: widget.dragStartBehavior,
+                    overlayColor: widget.overlayColor,
+                    mouseCursor: widget.mouseCursor,
+                    enableFeedback: widget.enableFeedback,
+                    onTap: widget.onTap,
+                    physics: widget.physics,
+                    splashFactory: widget.splashFactory,
+                    splashBorderRadius: widget.splashBorderRadius,
+                    tabAlignment: widget.tabAlignment,
+                  ),
                 ),
-              Expanded(
-                child: TabBar(
-                  isScrollable: widget.isScrollable,
-                  controller: _tabController,
-                  tabs: widget.dynamicTabs.map((tab) => tab.title).toList(),
-                  // Default Tab properties :---------------------------------------
-                  padding: widget.padding,
-                  indicatorColor: widget.indicatorColor,
-                  automaticIndicatorColorAdjustment:
-                      widget.automaticIndicatorColorAdjustment,
-                  indicatorWeight: widget.indicatorWeight,
-                  indicatorPadding: widget.indicatorPadding,
-                  indicator: widget.indicator,
-                  indicatorSize: widget.indicatorSize,
-                  dividerColor: widget.dividerColor,
-                  dividerHeight: widget.dividerHeight,
-                  labelColor: widget.labelColor,
-                  labelStyle: widget.labelStyle,
-                  labelPadding: widget.labelPadding,
-                  unselectedLabelColor: widget.unselectedLabelColor,
-                  unselectedLabelStyle: widget.unselectedLabelStyle,
-                  dragStartBehavior: widget.dragStartBehavior,
-                  overlayColor: widget.overlayColor,
-                  mouseCursor: widget.mouseCursor,
-                  enableFeedback: widget.enableFeedback,
-                  onTap: widget.onTap,
-                  physics: widget.physics,
-                  splashFactory: widget.splashFactory,
-                  splashBorderRadius: widget.splashBorderRadius,
-                  tabAlignment: widget.tabAlignment,
-                ),
-              ),
-              if (widget.isScrollable == true && widget.showNextIcon == true)
-                IconButton(
-                  icon: widget.nextIcon ??
-                      const Icon(
-                        Icons.arrow_forward_ios,
-                      ),
-                  onPressed: _moveToNextTab,
-                ),
-            ],
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: widget.dynamicTabs.map((tab) => tab.content).toList(),
+                if (widget.isScrollable == true && widget.showNextIcon == true)
+                  IconButton(
+                    icon: widget.nextIcon ??
+                        const Icon(
+                          Icons.arrow_forward_ios,
+                        ),
+                    onPressed: _moveToNextTab,
+                  ),
+              ],
             ),
-          ),
-          // Text('tabController length ${_tabController?.length}'),
-          // Text('tabs length ${widget.dynamicTabs.length}'),
-          // Text('Active Tab ${activeTab + 1}'),
-          // Text('_tabController.index ${_tabController!.index + 1}')
-        ],
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: widget.dynamicTabs.map((tab) => tab.content).toList(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
