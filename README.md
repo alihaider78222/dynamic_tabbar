@@ -6,6 +6,8 @@ A Flutter package that simplifies the implementation of dynamic TabBar in your a
 
 With [`DynamicTabBarWidget`](https://pub.dev/packages/dynamic_tabbar), users can effortlessly manage and navigate through a list of [Tabs](https://api.flutter.dev/flutter/material/TabBar-class.html). The widget is designed to auto-update as <b>Tabs</b> are added or removed, providing a seamless and dynamic user experience.
 
+🚀 Demo: [Dynamic Tabbar](https://alihaider78222.github.io/dynamic-tabbar-demo/)
+
 ## 📱 Screenshots
 
 <p float="left">

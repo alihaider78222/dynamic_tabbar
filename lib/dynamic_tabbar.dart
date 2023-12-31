@@ -1,3 +1,7 @@
+// Copyright (c) 2023 Ali Haider. All rights reserved.
+// Use of this source code is governed by MIT License that can be
+// found in the LICENSE file.
+
 library dynamic_tabbar;
 
 import 'package:flutter/gestures.dart';
