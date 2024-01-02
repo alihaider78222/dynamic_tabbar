@@ -1,3 +1,7 @@
+# 1.0.5
+
+* Leading and Trailing Widget property added
+
 # 1.0.4
 
 * Demo URL added in README.md

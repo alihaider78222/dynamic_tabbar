@@ -24,7 +24,7 @@ Get the latest version from the 'Installing' tab on [pub.dev](https://pub.dev/pa
 
 ```yaml
 dependencies:
-  dynamic_tabbar: <latest_version>
+  dynamic_tabbar: ^latest_version
 ```
 
 2. Import the package
