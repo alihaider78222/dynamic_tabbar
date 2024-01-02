@@ -143,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: removeLeadingWidget,
                   child: const Text('remove Leading Widget'),
                 ),
-                const SizedBox(width: 22, height: 40),
+                const SizedBox(width: 22, height: 44),
                 ElevatedButton(
                   onPressed: addTrailingWidget,
                   child: const Text('Add Trailing Widget'),
@@ -224,7 +224,7 @@ class _MyHomePageState extends State<MyHomePage> {
         message: 'Add your desired Leading widget here',
         child: IconButton(
           onPressed: () {},
-          icon: const Icon(Icons.star_border_rounded),
+          icon: const Icon(Icons.more_horiz_rounded),
         ),
       );
     });
