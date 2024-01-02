@@ -74,6 +74,18 @@ class DynamicTabBarWidget extends TabBar {
   /// If [isScrollable] is false, this property is ignored.
   final bool? showNextIcon;
 
+  /// The leading property is used to add custom leading widget in TabBar.
+  ///
+  /// By default [leading] widget is null.
+  ///
+  final Widget? leading;
+
+  /// The leading property is used to add custom trailing widget in TabBar.
+  ///
+  /// By default [trailing] widget is null.
+  ///
+  final Widget? trailing;
+
   DynamicTabBarWidget({
     super.key,
     required this.dynamicTabs,
@@ -85,6 +97,8 @@ class DynamicTabBarWidget extends TabBar {
     this.nextIcon,
     this.showBackIcon = true,
     this.showNextIcon = true,
+    this.leading,
+    this.trailing,
     // Default Tab properties :---------------------------------------
     super.padding,
     super.indicatorColor,
@@ -178,9 +192,6 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
   }
 
   int getActiveTab() {
-    debugPrint('activeTab :  $activeTab');
-    debugPrint('tabs.length :  ${widget.dynamicTabs.length}');
-
     // when there are No tabs
     if (activeTab == 0 && widget.dynamicTabs.isEmpty) {
       return 0;
@@ -241,6 +252,7 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
           children: [
             Row(
               children: [
+                if (widget.leading != null) widget.leading!,
                 if (widget.isScrollable == true && widget.showBackIcon == true)
                   IconButton(
                     icon: widget.backIcon ??
@@ -289,6 +301,7 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
                         ),
                     onPressed: _moveToNextTab,
                   ),
+                if (widget.trailing != null) widget.trailing!,
               ],
             ),
             Expanded(

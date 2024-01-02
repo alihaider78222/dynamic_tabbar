@@ -32,6 +32,13 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isScrollable = false;
   bool showNextIcon = true;
   bool showBackIcon = true;
+
+  // Leading icon
+  Widget? leading;
+
+  // Trailing icon
+  Widget? trailing;
+
   // Sample data for tabs
   List<TabData> tabs = [
     TabData(
@@ -77,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text('Add Tab'),
                 ),
                 const SizedBox(width: 12),
-                ElevatedButton(
+                OutlinedButton(
                   onPressed: () => removeTab(tabs.length - 1),
                   child: const Text('Remove Last Tab'),
                 ),
@@ -126,12 +133,34 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
+                const SizedBox(width: 22),
+                ElevatedButton(
+                  onPressed: addLeadingWidget,
+                  child: const Text('Add Leading Widget'),
+                ),
+                const SizedBox(width: 12),
+                OutlinedButton(
+                  onPressed: removeLeadingWidget,
+                  child: const Text('remove Leading Widget'),
+                ),
+                const SizedBox(width: 22, height: 40),
+                ElevatedButton(
+                  onPressed: addTrailingWidget,
+                  child: const Text('Add Trailing Widget'),
+                ),
+                const SizedBox(width: 12),
+                OutlinedButton(
+                  onPressed: removeTrailingWidget,
+                  child: const Text('remove Trailing Widget'),
+                ),
+                const SizedBox(width: 12),
               ],
             ),
           ),
           Expanded(
             child: DynamicTabBarWidget(
               dynamicTabs: tabs,
+              // optional properties :-----------------------------
               isScrollable: isScrollable,
               onTabControllerUpdated: (controller) {
                 debugPrint("onTabControllerUpdated");
@@ -144,6 +173,8 @@ class _MyHomePageState extends State<MyHomePage> {
               // nextIcon: Icon(Icons.keyboard_double_arrow_right),
               showBackIcon: showBackIcon,
               showNextIcon: showNextIcon,
+              leading: leading,
+              trailing: trailing,
             ),
           ),
         ],
@@ -179,6 +210,52 @@ class _MyHomePageState extends State<MyHomePage> {
   void removeTab(int id) {
     setState(() {
       tabs.removeAt(id);
+    });
+  }
+
+  void addLeadingWidget() {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text(
+          'Adding Icon button Widget \nYou can add any customized widget)'),
+    ));
+
+    setState(() {
+      leading = Tooltip(
+        message: 'Add your desired Leading widget here',
+        child: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.star_border_rounded),
+        ),
+      );
+    });
+  }
+
+  void removeLeadingWidget() {
+    setState(() {
+      leading = null;
+    });
+  }
+
+  void addTrailingWidget() {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text(
+          'Adding Icon button Widget \nYou can add any customized widget)'),
+    ));
+
+    setState(() {
+      trailing = Tooltip(
+        message: 'Add your desired Trailing widget here',
+        child: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.more_horiz_rounded),
+        ),
+      );
+    });
+  }
+
+  void removeTrailingWidget() {
+    setState(() {
+      trailing = null;
     });
   }
 }

@@ -19,7 +19,7 @@ With [`DynamicTabBarWidget`](https://pub.dev/packages/dynamic_tabbar), users can
 
 ## 🛠 Installation
 
-1. Add dependency to ```pubspec.yaml``` file:</br>
+1. Add dependency to `pubspec.yaml` file:</br>
 Get the latest version from the 'Installing' tab on [pub.dev](https://pub.dev/packages/dynamic_tabbar/install)
 
 ```yaml
@@ -56,6 +56,8 @@ import 'package:dynamic_tabbar/dynamic_tabbar.dart';
     nextIcon: Icon(Icons.arrow_forward),
     showBackIcon: showBackIcon,
     showNextIcon: showNextIcon,
+    leading : leadingWidget,
+    trailing : trailingWidget,
 
     // Default Tab properties can also be updated
     padding: padding,
@@ -87,13 +89,13 @@ import 'package:dynamic_tabbar/dynamic_tabbar.dart';
 
 ## 🌟 Features
 
-- <b>Dynamic Tab Management</b>: Users can push or pop items in the ```List<TabData> tabs``` array, and the <b>DynamicTabBarWidget</b> will auto-update accordingly.
+- <b>Dynamic Tab Management</b>: Users can push or pop items in the `List<TabData> tabs` array, and the <b>DynamicTabBarWidget</b> will auto-update accordingly.
 
-- <b>Tab Navigation</b>: Implement the ```onTabChanged``` callback to handle tab change events.
+- <b>Tab Navigation</b>: Implement the `onTabChanged` callback to handle tab change events.
 
-- <b>Customization Options</b>: Customize the appearance and behavior of the DynamicTabBarWidget using parameters like ```backIcon, nextIcon, showBackIcon, and showNextIcon```.
+- <b>Customization Options</b>: Customize the appearance and behavior of the DynamicTabBarWidget using parameters like `backIcon, nextIcon, showBackIcon, and showNextIcon`.
 
-- <b>Tab Position</b> : Specify the position to which cursor moves to after adding new Tab using the ```onAddTabMoveTo``` property.
+- <b>Tab Position</b> : Specify the position to which cursor moves to after adding new Tab using the `onAddTabMoveTo` property.
 
 ### 🧰 Parameters
 
@@ -103,15 +105,21 @@ import 'package:dynamic_tabbar/dynamic_tabbar.dart';
 
 - <b>onTabChanged</b>: Callback function triggered when a tab is changed.
 
-- <b>onAddTabMoveTo</b>: Enum value (MoveToTab.idol, MoveToTab.last) specifying where a new tab should be added.
+- <b>onAddTabMoveTo</b>: Enum value (`MoveToTab.idol`, `MoveToTab.last`) specifying where a tab navigator should move when Tab is added.
 
-- <b>backIcon</b>: Custom icon for the "Back" button, If ```isScrollable``` is false, this property is ignored.
+- <b>backIcon</b>: Custom icon for the "Back" button, If `isScrollable` is false, this property is ignored.
 
 - <b>nextIcon</b>: Custom icon for the "Next" button.
 
-- <b>showBackIcon</b>: Boolean to show or hide the ```Back icon``` button, If ```isScrollable``` is false, this property is ignored.
+- <b>showBackIcon</b>: Boolean to show or hide the `Back icon` button, If `isScrollable` is false, this property is ignored.
 
-- <b>showNextIcon</b>: Boolean to show or hide the ```Next icon``` button, If ```isScrollable``` is false, this property is ignored.
+- <b>showNextIcon</b>: Boolean to show or hide the `Next icon` button, If `isScrollable` is false, this property is ignored.
+
+- <b>leading</b>: Custom `leading Widget` if needed.
+
+- <b>trailing</b>: Custom `trailing Widget` if needed.
+
+- and `TabBar` default properties... 
 
 ## 📚 How to use
 
@@ -123,7 +131,7 @@ import 'package:dynamic_tabbar/dynamic_tabbar.dart';
 
 ### showBackIcon
 
-If ```isScrollable``` is false, this property is ignored.
+If `isScrollable` is false, this property is ignored.
 
 `showBackIcon: false`  | `showBackIcon: true`
 -- | --
@@ -131,7 +139,7 @@ If ```isScrollable``` is false, this property is ignored.
 
 ### showNextIcon
 
-If ```isScrollable``` is false, this property is ignored.
+If `isScrollable` is false, this property is ignored.
 
 `showNextIcon: false`  | `showNextIcon: true`
 -- | --
@@ -139,7 +147,7 @@ If ```isScrollable``` is false, this property is ignored.
 
 ### backIcon
 
-We can use custom Icon for back button, If ```isScrollable``` is false, this property is ignored.
+We can use custom Icon for back button, If `isScrollable` is false, this property is ignored.
 
 `backIcon: Icon()`  | `backIcon: null`
 -- | --
@@ -148,7 +156,7 @@ We can use custom Icon for back button, If ```isScrollable``` is false, this pro
 
 ### nextIcon
 
-We can use custom Icon for next button, If ```isScrollable``` is false, this property is ignored.
+We can use custom Icon for next button, If `isScrollable` is false, this property is ignored.
 
 `nextIcon: Icon()`  | `nextIcon: null`
 -- | --
@@ -157,7 +165,7 @@ We can use custom Icon for next button, If ```isScrollable``` is false, this pro
 
 ## 💻 Example
 
-Check out the **example** app in the [example](example) directory for a complete example.
+Check out the **example** app in the [example](example) directory for a complete example with additional parameters.
 
 ```dart
 import 'package:flutter/material.dart';
