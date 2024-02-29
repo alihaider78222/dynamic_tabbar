@@ -86,6 +86,24 @@ class DynamicTabBarWidget extends TabBar {
   ///
   final Widget? trailing;
 
+  /// The physics property is used to set the physics of TabBarView.
+  final ScrollPhysics? physicsTabBarView;
+
+  /// The dragStartBehavior property is used to set the dragStartBehavior of TabBarView.
+  ///
+  /// By default [dragStartBehavior] is DragStartBehavior.start.
+  final DragStartBehavior dragStartBehaviorTabBarView;
+
+  /// The clipBehavior property is used to set the clipBehavior of TabBarView.
+  ///
+  /// By default [clipBehavior] is Clip.hardEdge.
+  final double viewportFractionTabBarView;
+
+  /// The clipBehavior property is used to set the clipBehavior of TabBarView.
+  ///
+  /// By default [clipBehavior] is Clip.hardEdge.
+  final Clip clipBehaviorTabBarView;
+
   DynamicTabBarWidget({
     super.key,
     required this.dynamicTabs,
@@ -99,6 +117,11 @@ class DynamicTabBarWidget extends TabBar {
     this.showNextIcon = true,
     this.leading,
     this.trailing,
+    //Default TabBarView properties :---------------------------------------
+    this.physicsTabBarView,
+    this.dragStartBehaviorTabBarView = DragStartBehavior.start,
+    this.viewportFractionTabBarView = 1.0,
+    this.clipBehaviorTabBarView = Clip.hardEdge,
     // Default Tab properties :---------------------------------------
     super.padding,
     super.indicatorColor,
@@ -130,8 +153,7 @@ class DynamicTabBarWidget extends TabBar {
   _DynamicTabBarWidgetState createState() => _DynamicTabBarWidgetState();
 }
 
-class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
-    with TickerProviderStateMixin {
+class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget> with TickerProviderStateMixin {
   // Tab Controller
   TabController? _tabController;
 
@@ -147,8 +169,7 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _tabController =
-        getTabController(initialIndex: widget.dynamicTabs.length - 1);
+    _tabController = getTabController(initialIndex: widget.dynamicTabs.length - 1);
     widget.onTabControllerUpdated(_tabController = getTabController());
   }
 
@@ -269,8 +290,7 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
                     // Default Tab properties :---------------------------------------
                     padding: widget.padding,
                     indicatorColor: widget.indicatorColor,
-                    automaticIndicatorColorAdjustment:
-                        widget.automaticIndicatorColorAdjustment,
+                    automaticIndicatorColorAdjustment: widget.automaticIndicatorColorAdjustment,
                     indicatorWeight: widget.indicatorWeight,
                     indicatorPadding: widget.indicatorPadding,
                     indicator: widget.indicator,
@@ -307,6 +327,10 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
             Expanded(
               child: TabBarView(
                 controller: _tabController,
+                physics: widget.physicsTabBarView,
+                dragStartBehavior: widget.dragStartBehaviorTabBarView,
+                viewportFraction: widget.viewportFractionTabBarView,
+                clipBehavior: widget.clipBehaviorTabBarView,
                 children: widget.dynamicTabs.map((tab) => tab.content).toList(),
               ),
             ),
@@ -317,8 +341,7 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
   }
 
   _moveToNextTab() {
-    if (_tabController != null &&
-        _tabController!.index + 1 < _tabController!.length) {
+    if (_tabController != null && _tabController!.index + 1 < _tabController!.length) {
       _tabController!.animateTo(_tabController!.index + 1);
     } else {
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
