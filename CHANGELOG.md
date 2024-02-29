@@ -1,3 +1,7 @@
+# 1.0.6
+
+* Default TabBarView properties added
+
 # 1.0.5
 
 * Leading and Trailing Widget property added

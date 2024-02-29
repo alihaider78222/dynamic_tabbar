@@ -83,6 +83,12 @@ import 'package:dynamic_tabbar/dynamic_tabbar.dart';
     splashFactory: splashFactory,
     splashBorderRadius: splashBorderRadius,
     tabAlignment: tabAlignment,
+
+    // Default TabBarView properties can also be updated
+    physicsTabBarView: physicsTabBarView,
+    dragStartBehaviorTabBarView: physicsTabBarView,
+    viewportFractionTabBarView: viewportFractionTabBarView,
+    clipBehaviorTabBarView: clipBehaviorTabBarView,
 );
 
 ```
@@ -119,7 +125,9 @@ import 'package:dynamic_tabbar/dynamic_tabbar.dart';
 
 - <b>trailing</b>: Custom `trailing Widget` if needed.
 
-- and `TabBar` default properties... 
+- `TabBar` default properties...
+
+- and `TabBarView` default properties...
 
 ## 📚 How to use
 
