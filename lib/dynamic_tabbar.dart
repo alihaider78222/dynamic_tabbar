@@ -181,6 +181,9 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
 
     if (_tabController?.length != widget.dynamicTabs.length) {
       var activeTabIndex = getActiveTab();
+      if (activeTabIndex >= widget.dynamicTabs.length) {
+        activeTabIndex = widget.dynamicTabs.length - 1;
+      }
       _tabController = getTabController(initialIndex: activeTabIndex);
 
       var tabIndex = getOnAddMoveToTab(widget.onAddTabMoveTo);
@@ -200,6 +203,9 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
   }
 
   TabController getTabController({int initialIndex = 0}) {
+    if (initialIndex >= widget.dynamicTabs.length) {
+      initialIndex = widget.dynamicTabs.length - 1;
+    }
     return TabController(
       initialIndex: initialIndex,
       length: widget.dynamicTabs.length,
