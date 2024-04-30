@@ -1,3 +1,7 @@
+# 1.0.7
+
+* additional validation on initial index of tabcontroller added
+
 # 1.0.6
 
 * Default TabBarView properties added
