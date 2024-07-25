@@ -39,6 +39,8 @@ class DynamicTabBarWidget extends TabBar {
   final List<TabData> dynamicTabs;
   final Function(TabController) onTabControllerUpdated;
   final Function(int?)? onTabChanged;
+  final Widget Function(Widget widget)? customBuilderTab;
+  final Widget Function(Widget widget)? customBuilderTabView;
 
   /// Defines where the Tab indicator animation moves to when new Tab is added.
   ///
@@ -146,6 +148,8 @@ class DynamicTabBarWidget extends TabBar {
     this.dragStartBehaviorTabBarView = DragStartBehavior.start,
     this.viewportFractionTabBarView = 1.0,
     this.clipBehaviorTabBarView = Clip.hardEdge,
+    this.customBuilderTab,
+    this.customBuilderTabView,
   }) : super(tabs: []);
 
   @override
@@ -266,6 +270,68 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
 
   @override
   Widget build(BuildContext context) {
+    Widget tabBar = Row(
+      children: [
+        if (widget.leading != null) widget.leading!,
+        if (widget.isScrollable == true && widget.showBackIcon == true)
+          IconButton(
+            icon: widget.backIcon ??
+                const Icon(
+                  Icons.arrow_back_ios,
+                ),
+            onPressed: _moveToPreviousTab,
+          ),
+        Expanded(
+          child: TabBar(
+            isScrollable: widget.isScrollable,
+            controller: _tabController,
+            tabs: widget.dynamicTabs.map((tab) => tab.title).toList(),
+            // Default Tab properties :---------------------------------------
+            padding: widget.padding,
+            indicatorColor: widget.indicatorColor,
+            automaticIndicatorColorAdjustment:
+                widget.automaticIndicatorColorAdjustment,
+            indicatorWeight: widget.indicatorWeight,
+            indicatorPadding: widget.indicatorPadding,
+            indicator: widget.indicator,
+            indicatorSize: widget.indicatorSize,
+            dividerColor: widget.dividerColor,
+            dividerHeight: widget.dividerHeight,
+            labelColor: widget.labelColor,
+            labelStyle: widget.labelStyle,
+            labelPadding: widget.labelPadding,
+            unselectedLabelColor: widget.unselectedLabelColor,
+            unselectedLabelStyle: widget.unselectedLabelStyle,
+            dragStartBehavior: widget.dragStartBehavior,
+            overlayColor: widget.overlayColor,
+            mouseCursor: widget.mouseCursor,
+            enableFeedback: widget.enableFeedback,
+            onTap: widget.onTap,
+            physics: widget.physics,
+            splashFactory: widget.splashFactory,
+            splashBorderRadius: widget.splashBorderRadius,
+            tabAlignment: widget.tabAlignment,
+          ),
+        ),
+        if (widget.isScrollable == true && widget.showNextIcon == true)
+          IconButton(
+            icon: widget.nextIcon ??
+                const Icon(
+                  Icons.arrow_forward_ios,
+                ),
+            onPressed: _moveToNextTab,
+          ),
+        if (widget.trailing != null) widget.trailing!,
+      ],
+    );
+    Widget tabView = TabBarView(
+      controller: _tabController,
+      physics: widget.physicsTabBarView,
+      dragStartBehavior: widget.dragStartBehaviorTabBarView,
+      viewportFraction: widget.viewportFractionTabBarView,
+      clipBehavior: widget.clipBehaviorTabBarView,
+      children: widget.dynamicTabs.map((tab) => tab.content).toList(),
+    );
     // _tabController = getTabController(initialIndex: widget.dynamicTabs.length - 1);
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(
@@ -279,70 +345,9 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Row(
-              children: [
-                if (widget.leading != null) widget.leading!,
-                if (widget.isScrollable == true && widget.showBackIcon == true)
-                  IconButton(
-                    icon: widget.backIcon ??
-                        const Icon(
-                          Icons.arrow_back_ios,
-                        ),
-                    onPressed: _moveToPreviousTab,
-                  ),
-                Expanded(
-                  child: TabBar(
-                    isScrollable: widget.isScrollable,
-                    controller: _tabController,
-                    tabs: widget.dynamicTabs.map((tab) => tab.title).toList(),
-                    // Default Tab properties :---------------------------------------
-                    padding: widget.padding,
-                    indicatorColor: widget.indicatorColor,
-                    automaticIndicatorColorAdjustment:
-                        widget.automaticIndicatorColorAdjustment,
-                    indicatorWeight: widget.indicatorWeight,
-                    indicatorPadding: widget.indicatorPadding,
-                    indicator: widget.indicator,
-                    indicatorSize: widget.indicatorSize,
-                    dividerColor: widget.dividerColor,
-                    dividerHeight: widget.dividerHeight,
-                    labelColor: widget.labelColor,
-                    labelStyle: widget.labelStyle,
-                    labelPadding: widget.labelPadding,
-                    unselectedLabelColor: widget.unselectedLabelColor,
-                    unselectedLabelStyle: widget.unselectedLabelStyle,
-                    dragStartBehavior: widget.dragStartBehavior,
-                    overlayColor: widget.overlayColor,
-                    mouseCursor: widget.mouseCursor,
-                    enableFeedback: widget.enableFeedback,
-                    onTap: widget.onTap,
-                    physics: widget.physics,
-                    splashFactory: widget.splashFactory,
-                    splashBorderRadius: widget.splashBorderRadius,
-                    tabAlignment: widget.tabAlignment,
-                  ),
-                ),
-                if (widget.isScrollable == true && widget.showNextIcon == true)
-                  IconButton(
-                    icon: widget.nextIcon ??
-                        const Icon(
-                          Icons.arrow_forward_ios,
-                        ),
-                    onPressed: _moveToNextTab,
-                  ),
-                if (widget.trailing != null) widget.trailing!,
-              ],
-            ),
+            widget.customBuilderTab?.call(tabBar) ?? tabBar,
             Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                physics: widget.physicsTabBarView,
-                dragStartBehavior: widget.dragStartBehaviorTabBarView,
-                viewportFraction: widget.viewportFractionTabBarView,
-                clipBehavior: widget.clipBehaviorTabBarView,
-                children: widget.dynamicTabs.map((tab) => tab.content).toList(),
-              ),
-            ),
+                child: widget.customBuilderTabView?.call(tabView) ?? tabView),
           ],
         ),
       ),
