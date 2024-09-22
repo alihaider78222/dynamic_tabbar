@@ -1,3 +1,9 @@
+# 1.0.8
+
+* MoveToTab enums add
+* [onAddTabMoveToIndex] attribute add to move to specific Tab Index after adding tab
+* TabController fix
+
 # 1.0.7
 
 * additional validation on initial index of tabcontroller added
