@@ -21,9 +21,16 @@ class TabData {
 enum MoveToTab {
   /// The [idol] indicator will remain on current Tab when new Tab is added.
   idol,
-  // next,
-  // previous,
-  // first,
+
+  /// The [next] indicator will move to next Tab when new Tab is added.
+  next,
+
+  /// The [previous] indicator will move to previous Tab  when new Tab is added.
+  previous,
+
+  /// The [first] indicator will move to first Tab when new Tab is added.
+  first,
+
   /// The [last] indicator will move to the Last Tab when new Tab is added.
   last,
 }
@@ -45,6 +52,15 @@ class DynamicTabBarWidget extends TabBar {
   /// TabData contains two states at the moment [IDOL] and [LAST]
   ///
   final MoveToTab? onAddTabMoveTo;
+
+  /// Tab indicator animation moves to given Index when new Tab is added.
+  ///
+  /// If [onAddTabMoveTo] has some value, then this property is ignored.
+  ///
+  /// After using this if needed make it [null] to avoid conflicts with [onAddTabMoveTo]
+  ///
+  /// example: tabs.length - 1
+  final int? onAddTabMoveToIndex;
 
   /// The back icon of the TabBar when [isScrollable] is true.
   ///
@@ -110,6 +126,7 @@ class DynamicTabBarWidget extends TabBar {
     required this.onTabControllerUpdated,
     this.onTabChanged,
     this.onAddTabMoveTo,
+    this.onAddTabMoveToIndex,
     super.isScrollable,
     this.backIcon,
     this.nextIcon,
@@ -179,6 +196,10 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
   void didUpdateWidget(covariant DynamicTabBarWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
 
+    if (widget.dynamicTabs.isEmpty) {
+      return;
+    }
+
     if (_tabController?.length != widget.dynamicTabs.length) {
       var activeTabIndex = getActiveTab();
       if (activeTabIndex >= widget.dynamicTabs.length) {
@@ -186,7 +207,9 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
       }
       _tabController = getTabController(initialIndex: activeTabIndex);
 
-      var tabIndex = getOnAddMoveToTab(widget.onAddTabMoveTo);
+      var tabIndex = widget.onAddTabMoveToIndex ??
+          getOnAddMoveToTab(widget.onAddTabMoveTo);
+
       if (tabIndex != null) {
         Future.delayed(const Duration(milliseconds: 50), () {
           _tabController?.animateTo(
@@ -198,8 +221,10 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
         });
       }
     } else {
-      // debugPrint('NOOOOO Tab controller updated');
+      // debugPrint('NO Tab controller updated');
     }
+
+    widget.onTabControllerUpdated(_tabController = getTabController());
   }
 
   TabController getTabController({int initialIndex = 0}) {
@@ -237,14 +262,14 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
   // ignore: body_might_complete_normally_nullable
   int? getOnAddMoveToTab(MoveToTab? moveToTab) {
     switch (moveToTab) {
-      // case MoveToTab.NEXT:
-      //   return widget.dynamicTabs.length - 1;
+      case MoveToTab.next:
+        return activeTab + 1;
 
-      // case MoveToTab.PREVIOUS:
-      //   return widget.dynamicTabs.length - 2;
+      case MoveToTab.previous:
+        return activeTab > 0 ? activeTab - 1 : activeTab;
 
-      // case MoveToTab.FIRST:
-      //   return 1;
+      case MoveToTab.first:
+        return 0;
 
       case MoveToTab.last:
         return widget.dynamicTabs.length - 1;
@@ -291,36 +316,40 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
                     onPressed: _moveToPreviousTab,
                   ),
                 Expanded(
-                  child: TabBar(
-                    isScrollable: widget.isScrollable,
-                    controller: _tabController,
-                    tabs: widget.dynamicTabs.map((tab) => tab.title).toList(),
-                    // Default Tab properties :---------------------------------------
-                    padding: widget.padding,
-                    indicatorColor: widget.indicatorColor,
-                    automaticIndicatorColorAdjustment:
-                        widget.automaticIndicatorColorAdjustment,
-                    indicatorWeight: widget.indicatorWeight,
-                    indicatorPadding: widget.indicatorPadding,
-                    indicator: widget.indicator,
-                    indicatorSize: widget.indicatorSize,
-                    dividerColor: widget.dividerColor,
-                    dividerHeight: widget.dividerHeight,
-                    labelColor: widget.labelColor,
-                    labelStyle: widget.labelStyle,
-                    labelPadding: widget.labelPadding,
-                    unselectedLabelColor: widget.unselectedLabelColor,
-                    unselectedLabelStyle: widget.unselectedLabelStyle,
-                    dragStartBehavior: widget.dragStartBehavior,
-                    overlayColor: widget.overlayColor,
-                    mouseCursor: widget.mouseCursor,
-                    enableFeedback: widget.enableFeedback,
-                    onTap: widget.onTap,
-                    physics: widget.physics,
-                    splashFactory: widget.splashFactory,
-                    splashBorderRadius: widget.splashBorderRadius,
-                    tabAlignment: widget.tabAlignment,
-                  ),
+                  child: widget.dynamicTabs.isEmpty
+                      ? const SizedBox()
+                      : TabBar(
+                          isScrollable: widget.isScrollable,
+                          controller: _tabController,
+                          tabs: widget.dynamicTabs
+                              .map((tab) => tab.title)
+                              .toList(),
+                          // Default Tab properties :---------------------------------------
+                          padding: widget.padding,
+                          indicatorColor: widget.indicatorColor,
+                          automaticIndicatorColorAdjustment:
+                              widget.automaticIndicatorColorAdjustment,
+                          indicatorWeight: widget.indicatorWeight,
+                          indicatorPadding: widget.indicatorPadding,
+                          indicator: widget.indicator,
+                          indicatorSize: widget.indicatorSize,
+                          dividerColor: widget.dividerColor,
+                          dividerHeight: widget.dividerHeight,
+                          labelColor: widget.labelColor,
+                          labelStyle: widget.labelStyle,
+                          labelPadding: widget.labelPadding,
+                          unselectedLabelColor: widget.unselectedLabelColor,
+                          unselectedLabelStyle: widget.unselectedLabelStyle,
+                          dragStartBehavior: widget.dragStartBehavior,
+                          overlayColor: widget.overlayColor,
+                          mouseCursor: widget.mouseCursor,
+                          enableFeedback: widget.enableFeedback,
+                          onTap: widget.onTap,
+                          physics: widget.physics,
+                          splashFactory: widget.splashFactory,
+                          splashBorderRadius: widget.splashBorderRadius,
+                          tabAlignment: widget.tabAlignment,
+                        ),
                 ),
                 if (widget.isScrollable == true && widget.showNextIcon == true)
                   IconButton(

@@ -52,6 +52,7 @@ import 'package:dynamic_tabbar/dynamic_tabbar.dart';
     onTabControllerUpdated: (controller) {},
     onTabChanged: (index) {},
     onAddTabMoveTo: MoveToTab.last,
+    onAddTabMoveToIndex : null,
     backIcon: Icon(Icons.arrow_back),
     nextIcon: Icon(Icons.arrow_forward),
     showBackIcon: showBackIcon,

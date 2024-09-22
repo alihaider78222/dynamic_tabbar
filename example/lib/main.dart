@@ -169,6 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 debugPrint("Tab changed: $index");
               },
               onAddTabMoveTo: MoveToTab.last,
+              // onAddTabMoveToIndex: tabs.length - 1, // Random().nextInt(tabs.length);
               // backIcon: Icon(Icons.keyboard_double_arrow_left),
               // nextIcon: Icon(Icons.keyboard_double_arrow_right),
               showBackIcon: showBackIcon,
