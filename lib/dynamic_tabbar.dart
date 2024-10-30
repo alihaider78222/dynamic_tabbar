@@ -321,27 +321,28 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget> with TickerPr
         ),
       Expanded(
         child: widget.axisTab == Axis.vertical
-            ? NavigationRail(
-                destinations: widget.dynamicTabs.map((tab) {
-                  return NavigationRailDestination(
-                    icon: tab.title.icon ?? tab.title.child ?? Text(tab.title.text ?? ''),
-                    label: Text(tab.title.text ?? ''),
+            ? ValueListenableBuilder(
+                valueListenable: selectedIndex,
+                builder: (context, value, child) {
+                  return NavigationRail(
+                    destinations: widget.dynamicTabs.map((tab) {
+                      return NavigationRailDestination(
+                        icon: tab.title.icon ?? tab.title.child ?? Text(tab.title.text ?? ''),
+                        label: Text(tab.title.text ?? ''),
+                      );
+                    }).toList(),
+                    onDestinationSelected: (value) {
+                      _tabController = getTabController(initialIndex: value);
+                      _tabController?.animateTo(value);
+                      selectedIndex.value = value;
+                      widget.onTap?.call(value);
+                    },
+                    selectedIndex: selectedIndex.value,
+                    indicatorColor: widget.indicatorColor,
+                    useIndicator: true,
+                    groupAlignment: widget.alignmentVertical?.value ?? AlignmentVertical.top.value,
                   );
-                }).toList(),
-                onDestinationSelected: (value) {
-                  setState(() {
-                    // widget.controller?.animateTo(value);
-                    _tabController = getTabController(initialIndex: value);
-                    _tabController?.animateTo(value);
-                    activeTab = value;
-                  });
-                  widget.onTap?.call(value);
-                },
-                selectedIndex: activeTab,
-                indicatorColor: widget.indicatorColor,
-                useIndicator: true,
-                groupAlignment: widget.alignmentVertical?.value ?? AlignmentVertical.top.value,
-              )
+                })
             : TabBar(
                 isScrollable: widget.isScrollable,
                 controller: _tabController,
