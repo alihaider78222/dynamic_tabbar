@@ -28,6 +28,19 @@ enum MoveToTab {
   last,
 }
 
+///Alignment of the vertical Tab
+enum AlignmentVertical {
+  top,
+  center,
+  bottom;
+
+  const AlignmentVertical();
+
+  get value {
+    return (index - 1).toDouble();
+  }
+}
+
 /// Dynamic Tabs.
 class DynamicTabBarWidget extends TabBar {
   /// List of Tabs.
@@ -39,8 +52,6 @@ class DynamicTabBarWidget extends TabBar {
   final List<TabData> dynamicTabs;
   final Function(TabController) onTabControllerUpdated;
   final Function(int?)? onTabChanged;
-  final Widget Function(Widget widget)? customBuilderTab;
-  final Widget Function(Widget widget)? customBuilderTabView;
 
   /// Defines where the Tab indicator animation moves to when new Tab is added.
   ///
@@ -106,6 +117,31 @@ class DynamicTabBarWidget extends TabBar {
   /// By default [clipBehavior] is Clip.hardEdge.
   final Clip clipBehaviorTabBarView;
 
+  /// Custom Builder Widget for the Tab
+  final Widget Function(Widget widget)? customBuilderTab;
+
+  /// Custom builder Widget for the tabView
+  final Widget Function(Widget widget)? customBuilderTabView;
+
+  /// Set the tab on Vertical or Horizontal
+  ///
+  /// default value = Horizontal
+  ///
+  /// When Vertical, it will use the NavigationRail, so most of the custom properties of the Tab will not work only the basic
+  final Axis? axisTab;
+
+  /// Direction of the Tab
+  ///
+  /// can be used on both, vertical of horizontal tab
+  ///
+  /// up, left, right, down
+  final AxisDirection? axisDirectionTab;
+
+  /// only used when axisTab = Axis.vertical
+  ///
+  /// Alignment of the vertical Tab
+  final AlignmentVertical? alignmentVertical;
+
   DynamicTabBarWidget({
     super.key,
     required this.dynamicTabs,
@@ -148,8 +184,12 @@ class DynamicTabBarWidget extends TabBar {
     this.dragStartBehaviorTabBarView = DragStartBehavior.start,
     this.viewportFractionTabBarView = 1.0,
     this.clipBehaviorTabBarView = Clip.hardEdge,
+    // Custom builder
     this.customBuilderTab,
     this.customBuilderTabView,
+    this.axisTab,
+    this.axisDirectionTab,
+    this.alignmentVertical,
   }) : super(tabs: []);
 
   @override
@@ -157,8 +197,7 @@ class DynamicTabBarWidget extends TabBar {
   _DynamicTabBarWidgetState createState() => _DynamicTabBarWidgetState();
 }
 
-class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
-    with TickerProviderStateMixin {
+class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget> with TickerProviderStateMixin {
   // Tab Controller
   TabController? _tabController;
 
@@ -174,8 +213,7 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _tabController =
-        getTabController(initialIndex: widget.dynamicTabs.length - 1);
+    _tabController = getTabController(initialIndex: widget.dynamicTabs.length - 1);
     widget.onTabControllerUpdated(_tabController = getTabController());
   }
 
@@ -268,62 +306,87 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
     super.dispose();
   }
 
+  final ValueNotifier selectedIndex = ValueNotifier(0);
   @override
   Widget build(BuildContext context) {
-    Widget tabBar = Row(
-      children: [
-        if (widget.leading != null) widget.leading!,
-        if (widget.isScrollable == true && widget.showBackIcon == true)
-          IconButton(
-            icon: widget.backIcon ??
-                const Icon(
-                  Icons.arrow_back_ios,
-                ),
-            onPressed: _moveToPreviousTab,
-          ),
-        Expanded(
-          child: TabBar(
-            isScrollable: widget.isScrollable,
-            controller: _tabController,
-            tabs: widget.dynamicTabs.map((tab) => tab.title).toList(),
-            // Default Tab properties :---------------------------------------
-            padding: widget.padding,
-            indicatorColor: widget.indicatorColor,
-            automaticIndicatorColorAdjustment:
-                widget.automaticIndicatorColorAdjustment,
-            indicatorWeight: widget.indicatorWeight,
-            indicatorPadding: widget.indicatorPadding,
-            indicator: widget.indicator,
-            indicatorSize: widget.indicatorSize,
-            dividerColor: widget.dividerColor,
-            dividerHeight: widget.dividerHeight,
-            labelColor: widget.labelColor,
-            labelStyle: widget.labelStyle,
-            labelPadding: widget.labelPadding,
-            unselectedLabelColor: widget.unselectedLabelColor,
-            unselectedLabelStyle: widget.unselectedLabelStyle,
-            dragStartBehavior: widget.dragStartBehavior,
-            overlayColor: widget.overlayColor,
-            mouseCursor: widget.mouseCursor,
-            enableFeedback: widget.enableFeedback,
-            onTap: widget.onTap,
-            physics: widget.physics,
-            splashFactory: widget.splashFactory,
-            splashBorderRadius: widget.splashBorderRadius,
-            tabAlignment: widget.tabAlignment,
-          ),
+    List<Widget> childrenTab = [
+      if (widget.leading != null) widget.leading!,
+      if (widget.isScrollable == true && widget.showBackIcon == true)
+        IconButton(
+          icon: widget.backIcon ??
+              Icon(
+                widget.axisTab == Axis.vertical ? Icons.keyboard_arrow_up : Icons.arrow_back_ios,
+              ),
+          onPressed: _moveToPreviousTab,
         ),
-        if (widget.isScrollable == true && widget.showNextIcon == true)
-          IconButton(
-            icon: widget.nextIcon ??
-                const Icon(
-                  Icons.arrow_forward_ios,
-                ),
-            onPressed: _moveToNextTab,
-          ),
-        if (widget.trailing != null) widget.trailing!,
-      ],
-    );
+      Expanded(
+        child: widget.axisTab == Axis.vertical
+            ? NavigationRail(
+                destinations: widget.dynamicTabs.map((tab) {
+                  return NavigationRailDestination(
+                    icon: tab.title.icon ?? tab.title.child ?? Text(tab.title.text ?? ''),
+                    label: Text(tab.title.text ?? ''),
+                  );
+                }).toList(),
+                onDestinationSelected: (value) {
+                  setState(() {
+                    // widget.controller?.animateTo(value);
+                    _tabController = getTabController(initialIndex: value);
+                    _tabController?.animateTo(value);
+                    activeTab = value;
+                  });
+                  widget.onTap?.call(value);
+                },
+                selectedIndex: activeTab,
+                indicatorColor: widget.indicatorColor,
+                useIndicator: true,
+                groupAlignment: widget.alignmentVertical?.value ?? AlignmentVertical.top.value,
+              )
+            : TabBar(
+                isScrollable: widget.isScrollable,
+                controller: _tabController,
+                tabs: widget.dynamicTabs.map((tab) => tab.title).toList(),
+                // Default Tab properties :---------------------------------------
+                padding: widget.padding,
+                indicatorColor: widget.indicatorColor,
+                automaticIndicatorColorAdjustment: widget.automaticIndicatorColorAdjustment,
+                indicatorWeight: widget.indicatorWeight,
+                indicatorPadding: widget.indicatorPadding,
+                indicator: widget.indicator,
+                indicatorSize: widget.indicatorSize,
+                dividerColor: widget.dividerColor,
+                dividerHeight: widget.dividerHeight,
+                labelColor: widget.labelColor,
+                labelStyle: widget.labelStyle,
+                labelPadding: widget.labelPadding,
+                unselectedLabelColor: widget.unselectedLabelColor,
+                unselectedLabelStyle: widget.unselectedLabelStyle,
+                dragStartBehavior: widget.dragStartBehavior,
+                overlayColor: widget.overlayColor,
+                mouseCursor: widget.mouseCursor,
+                enableFeedback: widget.enableFeedback,
+                onTap: widget.onTap,
+                physics: widget.physics,
+                splashFactory: widget.splashFactory,
+                splashBorderRadius: widget.splashBorderRadius,
+                tabAlignment: widget.tabAlignment,
+              ),
+      ),
+      if (widget.isScrollable == true && widget.showNextIcon == true)
+        IconButton(
+          icon: widget.nextIcon ??
+              Icon(
+                widget.axisTab == Axis.vertical ? Icons.keyboard_arrow_down : Icons.arrow_forward_ios,
+              ),
+          onPressed: _moveToNextTab,
+        ),
+      if (widget.trailing != null) widget.trailing!,
+    ];
+    //
+    Widget tabBar = widget.axisTab == Axis.vertical
+        ? Column(children: childrenTab)
+        : Row(mainAxisSize: MainAxisSize.min, children: childrenTab);
+    //
     Widget tabView = TabBarView(
       controller: _tabController,
       physics: widget.physicsTabBarView,
@@ -333,6 +396,32 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
       children: widget.dynamicTabs.map((tab) => tab.content).toList(),
     );
     // _tabController = getTabController(initialIndex: widget.dynamicTabs.length - 1);
+
+    Widget child;
+    if (widget.axisTab == Axis.vertical) {
+      child = Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          //custom render the tab on left
+          if (widget.axisDirectionTab == AxisDirection.left) widget.customBuilderTab?.call(tabBar) ?? tabBar,
+          Expanded(child: widget.customBuilderTabView?.call(tabView) ?? tabView),
+          //normal render the tab on right
+          if (widget.axisDirectionTab != AxisDirection.left) widget.customBuilderTab?.call(tabBar) ?? tabBar,
+        ],
+      );
+    } else {
+      child = Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          // normal render the tab on top
+          if (widget.axisDirectionTab != AxisDirection.down) widget.customBuilderTab?.call(tabBar) ?? tabBar,
+          Expanded(child: widget.customBuilderTabView?.call(tabView) ?? tabView),
+          //if want to render the tab on bottom
+          if (widget.axisDirectionTab == AxisDirection.down) widget.customBuilderTab?.call(tabBar) ?? tabBar,
+        ],
+      );
+    }
+
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(
         dragDevices: {
@@ -342,21 +431,13 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
       ),
       child: DefaultTabController(
         length: widget.dynamicTabs.length,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            widget.customBuilderTab?.call(tabBar) ?? tabBar,
-            Expanded(
-                child: widget.customBuilderTabView?.call(tabView) ?? tabView),
-          ],
-        ),
+        child: child,
       ),
     );
   }
 
   _moveToNextTab() {
-    if (_tabController != null &&
-        _tabController!.index + 1 < _tabController!.length) {
+    if (_tabController != null && _tabController!.index + 1 < _tabController!.length) {
       _tabController!.animateTo(_tabController!.index + 1);
     } else {
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
