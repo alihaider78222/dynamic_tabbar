@@ -324,24 +324,40 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget> with TickerPr
             ? ValueListenableBuilder(
                 valueListenable: selectedIndex,
                 builder: (context, value, child) {
-                  return NavigationRail(
-                    destinations: widget.dynamicTabs.map((tab) {
-                      return NavigationRailDestination(
-                        icon: tab.title.icon ?? tab.title.child ?? Text(tab.title.text ?? ''),
-                        label: Text(tab.title.text ?? ''),
-                      );
-                    }).toList(),
-                    onDestinationSelected: (value) {
-                      _tabController = getTabController(initialIndex: value);
-                      _tabController?.animateTo(value);
-                      selectedIndex.value = value;
-                      widget.onTap?.call(value);
-                    },
-                    selectedIndex: selectedIndex.value,
-                    indicatorColor: widget.indicatorColor,
-                    useIndicator: true,
-                    groupAlignment: widget.alignmentVertical?.value ?? AlignmentVertical.top.value,
-                  );
+                  return LayoutBuilder(builder: (context, constraint) {
+                    return SingleChildScrollView(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(minHeight: constraint.maxHeight),
+                        child: IntrinsicHeight(
+                          child: NavigationRail(
+                            destinations: widget.dynamicTabs.map((tab) {
+                              return NavigationRailDestination(
+                                icon: tab.title.icon ?? tab.title.child ?? Text(tab.title.text ?? ''),
+                                label: Text(tab.title.text ?? ''),
+                              );
+                            }).toList(),
+                            onDestinationSelected: (value) {
+                              _tabController = getTabController(initialIndex: value);
+                              _tabController?.animateTo(value);
+                              selectedIndex.value = value;
+                              widget.onTap?.call(value);
+                              setState(() {
+                                activeTab = value;
+                                if (_tabController?.indexIsChanging == true) {
+                                  widget.onTabChanged!(_tabController?.index);
+                                }
+                              });
+                            },
+                            selectedIndex: selectedIndex.value,
+                            indicatorColor: widget.indicatorColor,
+                            useIndicator: true,
+                            groupAlignment: widget.alignmentVertical?.value ?? AlignmentVertical.top.value,
+                            backgroundColor: Colors.transparent,
+                          ),
+                        ),
+                      ),
+                    );
+                  });
                 })
             : TabBar(
                 isScrollable: widget.isScrollable,
@@ -440,6 +456,7 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget> with TickerPr
   _moveToNextTab() {
     if (_tabController != null && _tabController!.index + 1 < _tabController!.length) {
       _tabController!.animateTo(_tabController!.index + 1);
+      selectedIndex.value = _tabController?.index;
     } else {
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //   content: Text("Can't move forward"),
@@ -450,6 +467,7 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget> with TickerPr
   _moveToPreviousTab() {
     if (_tabController != null && _tabController!.index > 0) {
       _tabController!.animateTo(_tabController!.index - 1);
+      selectedIndex.value = _tabController?.index;
     } else {
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //   content: Text("Can't go back"),
