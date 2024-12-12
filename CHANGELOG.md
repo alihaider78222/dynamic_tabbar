@@ -1,3 +1,7 @@
+# 1.0.9
+
+* fix nullable [onTabControllerUpdated] issue
+
 # 1.0.8
 
 * MoveToTab enums add
