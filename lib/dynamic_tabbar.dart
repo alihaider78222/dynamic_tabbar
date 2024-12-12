@@ -189,7 +189,9 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
 
     _tabController =
         getTabController(initialIndex: widget.dynamicTabs.length - 1);
-    widget.onTabControllerUpdated(_tabController = getTabController());
+    if (_tabController != null) {
+      widget.onTabControllerUpdated.call(_tabController!);
+    }
   }
 
   @override
@@ -224,7 +226,9 @@ class _DynamicTabBarWidgetState extends State<DynamicTabBarWidget>
       // debugPrint('NO Tab controller updated');
     }
 
-    widget.onTabControllerUpdated(_tabController = getTabController());
+    if (_tabController != null) {
+      widget.onTabControllerUpdated.call(_tabController!);
+    }
   }
 
   TabController getTabController({int initialIndex = 0}) {
